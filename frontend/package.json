@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "localbuild": "rm -rf dist/* && vue-cli-service build --mode development --watch --no-clean",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

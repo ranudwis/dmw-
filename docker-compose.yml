@@ -1,0 +1,68 @@
+version: '3.7'
+services:
+  backend:
+    build: './'
+    image: cloud.canister.io:5000/ranudwis/medikov2:latest
+    volumes:
+      - './virtualhost.dev.conf:/etc/apache2/sites-available/000-default.conf'
+      - '.:/backend'
+      - type: volume
+        source: frontend_files
+        target: /frontend
+        read_only: true
+    ports:
+      - '8000:80'
+    depends_on:
+      - database
+      - frontend
+    environment:
+      APP_KEY: 'base64:gHZOaJNVvWhhJHjVrNfYeSCCRsvwGNonnHUp5TV8Wws='
+      DB_HOST: 'database'
+      DB_DATABASE: 'medikov2'
+      DB_USERNAME: 'root'
+      DB_PASSWORD: 'root'
+
+  migration:
+    image: cloud.canister.io:5000/ranudwis/medikov2:latest
+    volumes:
+      - '.:/backend'
+    depends_on:
+      - database
+      - backend
+    environment:
+      APP_KEY: 'base64:gHZOaJNVvWhhJHjVrNfYeSCCRsvwGNonnHUp5TV8Wws='
+      DB_HOST: 'database'
+      DB_DATABASE: 'medikov2'
+      DB_USERNAME: 'root'
+      DB_PASSWORD: 'root'
+    command: ['./artisan', 'migrate']
+
+  frontend:
+    build: './frontend'
+    volumes:
+      - './frontend:/frontend'
+      - type: volume
+        source: frontend_files
+        target: /frontend/dist
+
+    environment:
+      VUE_APP_BASE_URL: 'http://localhost:8000/'
+      VUE_APP_ASSET_URL: 'http://localhost:8000/'
+      VUE_APP_PRIMARY_COLOR: '#00796B'
+      VUE_APP_SECONDARY_COLOR: '#009688'
+      VUE_APP_AVATAR_COLOR: '#00695C'
+      VUE_APP_API_VERSION: 'v1'
+
+  database:
+    image: 'mariadb:10.4.11'
+    environment:
+      MYSQL_DATABASE: 'medikov2'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3306'
+    volumes:
+      - 'database_data:/var/lib/mysql'
+
+volumes:
+  database_data:
+  frontend_files:

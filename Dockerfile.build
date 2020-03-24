@@ -1,0 +1,48 @@
+FROM node:12.16.1-alpine3.11 as frontendbuild
+
+ARG VUE_APP_BASE_URL='https://mediko.id/'
+ARG VUE_APP_ASSET_URL='https://mediko.id/'
+ARG VUE_APP_PRIMARY_COLOR='#00796B'
+ARG VUE_APP_SECONDARY_COLOR='#009688'
+ARG VUE_APP_AVATAR_COLOR='#00695C'
+ARG VUE_APP_API_VERSION='v1'
+
+WORKDIR /frontend
+
+COPY ./frontend/package.json ./frontend/yarn.lock ./
+RUN yarn install
+
+COPY ./frontend/ .
+
+RUN yarn build
+
+WORKDIR dist
+
+RUN ../node_modules/purgecss/bin/purgecss --css css/app*.css --content index.html js/*.js --out css
+
+
+FROM composer:latest as backenddeps
+
+WORKDIR /deps
+
+COPY database/ database/
+COPY tests/ tests/
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader
+
+
+FROM php:7.4.3-apache
+
+WORKDIR /backend
+
+RUN docker-php-ext-install opcache pdo_mysql
+
+RUN a2enmod rewrite
+
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+COPY --chown=www-data:www-data --from=backenddeps /deps/vendor/ vendor/
+COPY --chown=www-data:www-data . .
+
+COPY --chown=www-data:www-data --from=frontendbuild /frontend/dist /frontend
+COPY virtualhost.production.conf /etc/apache2/sites-available/000-default.conf

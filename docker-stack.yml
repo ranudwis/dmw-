@@ -1,0 +1,58 @@
+version: '3.7'
+services:
+  medikov2:
+    image: cloud.canister.io:5000/ranudwis/medikov2:latest
+    ports:
+      - '80:80'
+    depends_on:
+      - database
+    volumes:
+      - type: volume
+        source: backend_storage
+        target: /backend/storage/app/public
+    secrets:
+      - source: medikov2_backend_env
+        target: /backend/.env
+      - medikov2_backend_jwt_private_key
+      - medikov2_backend_jwt_public_key
+
+  migration:
+    image: cloud.canister.io:5000/ranudwis/medikov2:latest
+    depends_on:
+      - database
+    volumes:
+      - type: volume
+        source: backend_storage
+        target: /backend/storage/app/public
+    secrets:
+      - source: medikov2_backend_env
+        target: /backend/.env
+    command: ['./artisan', 'migrate', '--force']
+
+  database:
+    image: mariadb:10.4.11
+    environment:
+      MYSQL_DATABASE: medikov2
+      MYSQL_USER: medikov2
+      MYSQL_PASSWORD_FILE: /run/secrets/medikov2_database_password
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    ports:
+      - '3306'
+    volumes:
+      - 'database_data:/var/lib/mysql'
+    secrets:
+      - medikov2_database_password
+
+secrets:
+  medikov2_backend_env:
+    external: true
+  medikov2_backend_jwt_private_key:
+    external: true
+  medikov2_backend_jwt_public_key:
+    external: true
+  medikov2_database_password:
+    external: true
+
+volumes:
+  database_data:
+  backend_storage:
