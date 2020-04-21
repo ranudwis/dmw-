@@ -1,11 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home'
+import PublicMain from '@/templates/public/Main'
+import Home from '@/views/home/Home'
 
 Vue.use(VueRouter)
 
 const routes = [
-    { path: '/', name: 'Home', component: Home },
+    {
+        path: '/',
+        component: PublicMain,
+        children: [
+            { path: '', component: Home, name: 'home' },
+        ]
+    },
 ]
 
 const router = new VueRouter({
