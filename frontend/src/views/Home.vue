@@ -85,8 +85,6 @@
                     <v-icon>mdi-web</v-icon>
                     Webtutor terbaru
 
-
-
                     <v-btn text small color="primary" class="ml-4">
                         Selengkapnya
 
@@ -111,13 +109,61 @@
                 <h2 class="headline">
                     <v-icon>mdi-book-open-page-variant</v-icon>
                     Modul dan pembahasan terbaru
+
+                    <v-btn text small color="primary" class="ml-4">
+                        Selengkapnya
+
+                        <v-icon right>mdi-chevron-right</v-icon>
+                    </v-btn>
                 </h2>
 
-                <v-list>
-                    <v-list-item v-for="i in 6" :key="i">
-                        <v-list-item-title>Item ke-{{ i }}</v-list-item-title>
-                    </v-list-item>
-                </v-list>
+                <v-row class="mt-4">
+                    <v-col cols="6">
+                        <v-card v-for="i in 4" :key="i" link class="mb-4">
+                            <v-list-item two-line>
+                                <v-list-item-avatar color="primary">
+                                    <v-icon color="white">
+                                        mdi-book
+                                    </v-icon>
+                                </v-list-item-avatar>
+
+                                <v-list-item-content>
+                                    <v-list-item-title>
+                                        Bahasa pemrograman prosedural
+                                    </v-list-item-title>
+
+                                    <v-list-item-subtitle>
+                                        Algoritma Pemrograman
+                                    </v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-card>
+                    </v-col>
+
+                    <v-divider vertical></v-divider>
+
+                    <v-col>
+                        <v-card v-for="i in 4" :key="i" link class="mb-4">
+                            <v-list-item two-line>
+                                <v-list-item-avatar color="primary">
+                                    <v-icon color="white">
+                                        mdi-file-document-edit
+                                    </v-icon>
+                                </v-list-item-avatar>
+
+                                <v-list-item-content>
+                                    <v-list-item-title>
+                                        Pembahasan UTS 2018/2019
+                                    </v-list-item-title>
+
+                                    <v-list-item-subtitle>
+                                        Algoritma Pemrograman
+                                    </v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-card>
+                    </v-col>
+                </v-row>
             </v-container>
 
             <v-container fluid class="blue-grey lighten-5 mt-8">
