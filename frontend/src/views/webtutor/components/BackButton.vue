@@ -1,6 +1,13 @@
 <template>
     <v-slide-x-transition>
-        <v-btn v-show="show" text large color="primary" @click="show=false">
+        <v-btn
+            v-show="showBackButton"
+            text
+            large
+            color="primary"
+            :to="{ name: 'webtutor.index' }"
+            exact
+        >
             <v-icon left>mdi-chevron-left</v-icon>
             Semua webtutor
         </v-btn>
@@ -9,10 +16,10 @@
 
 <script>
 export default {
-    data() {
-        return {
-            show: true
+    computed: {
+        showBackButton() {
+            return this.$route.name !== 'webtutor.index'
         }
-    }
+    },
 }
 </script>

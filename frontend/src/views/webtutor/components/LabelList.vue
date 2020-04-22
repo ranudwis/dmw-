@@ -6,7 +6,7 @@
         </v-card-title>
 
         <v-list>
-            <v-list-item link>
+            <v-list-item :to="{ name: 'webtutor.label', params: { label: 'pemrograman' } }">
                 <v-list-item-content>
                     <v-list-item-title>
                         Pemrograman
