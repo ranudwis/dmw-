@@ -17,7 +17,7 @@
                 :key="i"
                 text
                 :to="navigation.to"
-                exact="navigation.exact"
+                :exact="navigation.exact"
             >
 
                 <v-icon left>{{ navigation.icon }}</v-icon>
@@ -52,7 +52,7 @@ export default {
                     icon: 'mdi-book-open-page-variant',
                     text: 'soal & modul',
                 }, {
-                    to: { name: 'webtutor' },
+                    to: { name: 'webtutor.index' },
                     icon: 'mdi-web',
                     text: 'webtutor'
                 }, {

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import PublicMain from '@/templates/public/Main'
 import Home from '@/views/home/Home'
+import WebtutorRoutes from '@/views/webtutor/routes'
 
 Vue.use(VueRouter)
 
@@ -11,6 +12,7 @@ const routes = [
         component: PublicMain,
         children: [
             { path: '', component: Home, name: 'home' },
+            ...WebtutorRoutes,
         ]
     },
 ]
