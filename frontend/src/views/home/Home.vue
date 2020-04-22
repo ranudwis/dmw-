@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import JumbotronSection from './templates/JumbotronSection'
-import WebtutorSection from './templates/WebtutorSection'
-import ModulesSection from './templates/ModulesSection'
-import FooterSection from './templates/FooterSection'
+import JumbotronSection from './components/JumbotronSection'
+import WebtutorSection from './components/WebtutorSection'
+import ModulesSection from './components/ModulesSection'
+import FooterSection from './components/FooterSection'
 
 export default {
     components: {
