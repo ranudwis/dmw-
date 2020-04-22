@@ -12,17 +12,17 @@
         <v-toolbar-title>DMW++</v-toolbar-title>
 
         <v-toolbar-items class="ml-4">
-            <v-btn text>
-                <v-icon left>mdi-home</v-icon>
-                home
-            </v-btn>
-            <v-btn text>
-                <v-icon left>mdi-book-open-page-variant</v-icon>
-                soal &amp; modul
-            </v-btn>
-            <v-btn text>
-                <v-icon left>mdi-web</v-icon>
-                webtutor
+            <v-btn
+                v-for="(navigation, i) in navigations"
+                :key="i"
+                text
+                :to="navigation.to"
+                exact="navigation.exact"
+            >
+
+                <v-icon left>{{ navigation.icon }}</v-icon>
+
+                {{ navigation.text}}
             </v-btn>
         </v-toolbar-items>
 
@@ -39,6 +39,29 @@
 
 <script>
 export default {
-    name: 'NavigationBar',
+    data() {
+        return {
+            navigations: [
+                {
+                    to: { name: 'home' },
+                    exact: true,
+                    icon: 'mdi-home',
+                    text: 'home'
+                }, {
+                    to: {},
+                    icon: 'mdi-book-open-page-variant',
+                    text: 'soal & modul',
+                }, {
+                    to: { name: 'webtutor' },
+                    icon: 'mdi-web',
+                    text: 'webtutor'
+                }, {
+                    to: {},
+                    icon: 'mdi-message',
+                    text: 'feedback',
+                }
+            ]
+        }
+    }
 }
 </script>
