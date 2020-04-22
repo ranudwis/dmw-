@@ -11,23 +11,18 @@
             </v-btn>
         </h2>
 
-        <v-row class="mt-4">
-            <v-col v-for="webtutor in webtutors" :key="webtutor.id" cols="3">
-                <v-card link>
-                    <v-img src="@/assets/images/cover.jpg" max-height="200px" position="top"></v-img>
-                    <v-card-title>{{ webtutor.title }}</v-card-title>
-                    <v-card-subtitle>{{ webtutor.posted_at }}</v-card-subtitle>
-                    <v-card-text>
-                        {{ webtutor.content }}
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
+        <webtutor-list :webtutors="webtutors" class="mt-4"></webtutor-list>
     </v-container>
 </template>
 
 <script>
+import WebtutorList from '@/templates/webtutor/WebtutorList'
+
 export default {
+    components: {
+        WebtutorList,
+    },
+
     data() {
         return {
             webtutors: [
