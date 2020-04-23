@@ -1,0 +1,51 @@
+<template>
+    <v-menu>
+        <template #activator="{ on }">
+            <v-btn v-on="on" color="primary">
+                <v-icon left>{{ currentViewMode.icon }}</v-icon>
+                Tampilkan: {{ currentViewMode.title }}
+            </v-btn>
+        </template>
+
+        <v-list>
+            <v-list-item
+                v-for="(viewMode, idx) in viewModes"
+                :key="idx"
+                @click="currentViewModeIdx = idx"
+            >
+                <v-list-item-icon>
+                    <v-icon>{{ viewMode.icon }}</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                    <v-list-item-title>{{ viewMode.title }}</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+        </v-list>
+    </v-menu>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            currentViewModeIdx: 0,
+            viewModes: [
+                {
+                    icon: 'mdi-view-agenda',
+                    title: 'Semester'
+                }, {
+                    icon: 'mdi-view-list',
+                    title: 'Semua'
+                }
+            ]
+        }
+    },
+
+    computed: {
+        currentViewMode() {
+            return this.viewModes[this.currentViewModeIdx]
+        }
+    }
+}
+</script>
