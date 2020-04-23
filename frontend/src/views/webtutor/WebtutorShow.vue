@@ -3,17 +3,25 @@
         <article-viewer :article="webtutor"></article-viewer>
 
         <article-prev-and-next :prev="prev" :next="next" class="mt-4"></article-prev-and-next>
+
+        <create-comment class="mt-4"></create-comment>
+
+        <comment-list class="mt-4"></comment-list>
     </v-container>
 </template>
 
 <script>
 import ArticleViewer from './components/ArticleViewer'
 import ArticlePrevAndNext from './components/ArticlePrevAndNext'
+import CreateComment from './components/CreateComment'
+import CommentList from './components/CommentList'
 
 export default {
     components: {
         ArticleViewer,
         ArticlePrevAndNext,
+        CreateComment,
+        CommentList,
     },
 
     data() {
