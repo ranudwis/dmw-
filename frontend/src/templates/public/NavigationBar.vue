@@ -56,7 +56,7 @@ export default {
                     icon: 'mdi-web',
                     text: 'webtutor'
                 }, {
-                    to: {},
+                    to: { name: 'feedback' },
                     icon: 'mdi-message',
                     text: 'feedback',
                 }

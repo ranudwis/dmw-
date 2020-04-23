@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import PublicMain from '@/templates/public/Main'
 import Home from '@/views/home/Home'
 import WebtutorRoutes from '@/views/webtutor/routes'
+import Feedback from '@/views/feedback/Feedback'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,7 @@ const routes = [
         children: [
             { path: '', component: Home, name: 'home' },
             ...WebtutorRoutes,
+            { path: 'feedback', component: Feedback, name: 'feedback' },
         ]
     },
 ]
