@@ -1,5 +1,6 @@
 import ModuleMain from './ModuleMain'
 import ModuleIndex from './ModuleIndex'
+import SemesterShow from './SemesterShow'
 
 export default [
     {
@@ -7,6 +8,7 @@ export default [
         component: ModuleMain,
         children: [
             { path: '', component: ModuleIndex, name: 'module.index' },
+            { path: 'semester/:slug', component: SemesterShow, name: 'semester.show' },
         ]
     }
 ]

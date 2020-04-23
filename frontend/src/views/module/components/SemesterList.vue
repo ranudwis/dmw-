@@ -1,6 +1,11 @@
 <template>
     <div>
-        <v-card v-for="semester in semesters" :key="semester.id" class="my-2" link>
+        <v-card
+            v-for="semester in semesters"
+            :key="semester.id"
+            :to="{ name: 'semester.show', params: { slug: semester.slug } }"
+            class="my-4"
+        >
             <v-list-item>
                 <v-list-item-avatar color="primary">
                     <v-icon color="white">mdi-book-multiple</v-icon>
