@@ -3,6 +3,7 @@
         <v-card
             v-for="course in courses"
             :key="course.id"
+            :to="{ name: 'course.show', params: { slug: course.slug } }"
             class="my-4"
         >
             <v-list-item>
