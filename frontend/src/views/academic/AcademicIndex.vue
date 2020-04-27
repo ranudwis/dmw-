@@ -1,11 +1,13 @@
 <template>
-    <v-container class="mt-8">
-        <view-mode-selector></view-mode-selector>
+    <v-content>
+        <v-container class="mt-8">
+            <view-mode-selector></view-mode-selector>
 
-        <semester-list class="mt-8"></semester-list>
+            <semester-list class="mt-8"></semester-list>
 
-        <course-list></course-list>
-    </v-container>
+            <course-list></course-list>
+        </v-container>
+    </v-content>
 </template>
 
 <script>

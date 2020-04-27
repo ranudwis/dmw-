@@ -1,17 +1,19 @@
 <template>
-    <v-container>
-        <v-toolbar flat>
-            <v-btn icon :to="{ name: 'module.index' }" exact>
-                <v-icon>mdi-arrow-left</v-icon>
-            </v-btn>
+    <v-content>
+        <v-container>
+            <v-toolbar flat>
+                <v-btn icon :to="{ name: 'module.index' }" exact>
+                    <v-icon>mdi-arrow-left</v-icon>
+                </v-btn>
 
-            <v-toolbar-title>
-                Semester 1
-            </v-toolbar-title>
-        </v-toolbar>
+                <v-toolbar-title>
+                    Semester 1
+                </v-toolbar-title>
+            </v-toolbar>
 
-        <course-list></course-list>
-    </v-container>
+            <course-list></course-list>
+        </v-container>
+    </v-content>
 </template>
 
 <script>
