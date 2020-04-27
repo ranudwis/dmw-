@@ -22,9 +22,7 @@
             <v-tabs-items v-model="tab">
                 <exam-tab-item class="pa-4"></exam-tab-item>
 
-                <v-tab-item>
-                    Ini adalah modul modul yang ada
-                </v-tab-item>
+                <module-tab-item class="pa-4"></module-tab-item>
             </v-tabs-items>
         </v-container>
     </v-content>
@@ -32,10 +30,12 @@
 
 <script>
 import ExamTabItem from './components/ExamTabItem'
+import ModuleTabItem from './components/ModuleTabItem'
 
 export default {
     components: {
         ExamTabItem,
+        ModuleTabItem,
     },
 
     data() {
