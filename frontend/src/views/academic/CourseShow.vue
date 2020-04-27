@@ -20,7 +20,7 @@
             </v-toolbar>
 
             <v-tabs-items v-model="tab">
-                <questions-and-answers-tab-item class="pa-4"></questions-and-answers-tab-item>
+                <exam-tab-item class="pa-4"></exam-tab-item>
 
                 <v-tab-item>
                     Ini adalah modul modul yang ada
@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import QuestionsAndAnswersTabItem from './components/QuestionsAndAnswersTabItem'
+import ExamTabItem from './components/ExamTabItem'
 
 export default {
     components: {
-        QuestionsAndAnswersTabItem,
+        ExamTabItem,
     },
 
     data() {
