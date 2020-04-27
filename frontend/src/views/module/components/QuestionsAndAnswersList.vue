@@ -1,9 +1,16 @@
 <template>
     <div>
-        <v-card v-for="exam in exams" :key="exam.id" class="my-4">
+        <v-card
+            v-for="exam in exams"
+            :key="exam.id"
+            :to="{ name: 'exam.show', params: { slug: $route.params.slug, examId: exam.id } }"
+            class="my-4"
+        >
             <v-list-item>
                 <v-list-item-avatar>
-                    <v-icon>mdi-file</v-icon>
+                    <v-icon v-if="exam.information">mdi-file-alert</v-icon>
+                    <v-icon v-else-if="exam.isAvailable">mdi-file-check</v-icon>
+                    <v-icon v-else>mdi-file</v-icon>
                 </v-list-item-avatar>
 
                 <v-list-item-content>
@@ -12,16 +19,21 @@
                     </v-list-item-title>
 
                     <v-list-item-subtitle v-if="exam.information">
-                        <v-chip small label>
-                            {{ exam.information }}
-                        </v-chip>
+                        {{ exam.information }}
                     </v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-icon>
                     <v-icon v-if="exam.hasComment">mdi-forum</v-icon>
 
-                    <v-btn v-if="exam.isAvailable" icon class="ml-2">
+                    <v-btn
+                        v-if="exam.isAvailable"
+                        @click.stop=""
+                        href="https://google.com"
+                        target="_blank"
+                        icon
+                        class="ml-2"
+                    >
                         <v-icon>mdi-download</v-icon>
                     </v-btn>
 

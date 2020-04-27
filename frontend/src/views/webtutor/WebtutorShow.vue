@@ -13,8 +13,8 @@
 <script>
 import ArticleViewer from './components/ArticleViewer'
 import ArticlePrevAndNext from './components/ArticlePrevAndNext'
-import CreateComment from './components/CreateComment'
-import CommentList from './components/CommentList'
+import CreateComment from '@/templates/comment/CreateComment'
+import CommentList from '@/templates/comment/CommentList'
 
 export default {
     components: {
