@@ -43,7 +43,7 @@
 
                     <v-list-item-content>
                         <v-list-item-title>Jawaban</v-list-item-title>
-                        <v-list-item-subtitle>Oleh {{ answer.user }}</v-list-item-subtitle>
+                        <v-list-item-subtitle>{{ answer.user }}</v-list-item-subtitle>
                     </v-list-item-content>
 
                     <v-list-item-icon>

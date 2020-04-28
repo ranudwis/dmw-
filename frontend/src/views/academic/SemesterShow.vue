@@ -11,7 +11,7 @@
                 </v-toolbar-title>
             </v-toolbar>
 
-            <course-list></course-list>
+            <course-list class="mt-4"></course-list>
         </v-container>
     </v-content>
 </template>

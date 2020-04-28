@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-4">
+    <div>
         <v-card
             v-for="course in courses"
             :key="course.id"
