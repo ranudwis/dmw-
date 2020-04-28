@@ -1,5 +1,8 @@
 <template>
-    <v-card link class="mb-4">
+    <v-card
+        :to="{ name: 'course.show', params: { slug: item.course_slug }, hash: '#modul' }"
+        class="mb-4"
+    >
         <v-list-item two-line>
             <v-list-item-avatar color="primary">
                 <v-icon color="white">

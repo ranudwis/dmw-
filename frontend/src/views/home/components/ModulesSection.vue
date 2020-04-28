@@ -4,7 +4,13 @@
             <v-icon>mdi-book-open-page-variant</v-icon>
             Modul dan pembahasan terbaru
 
-            <v-btn text small color="primary" class="ml-4">
+            <v-btn
+                :to="{ name: 'academic.index' }"
+                text
+                small
+                color="primary"
+                class="ml-4"
+            >
                 Selengkapnya
 
                 <v-icon right>mdi-chevron-right</v-icon>
@@ -49,7 +55,8 @@ export default {
                 {
                     id: 1,
                     title: 'Bahasa pemrograman proseduran',
-                    course: 'Algoritma Pemrograman'
+                    course: 'Algoritma Pemrograman',
+                    course_slug: 'alpro'
                 }
             ],
 
@@ -58,6 +65,7 @@ export default {
                     id: 1,
                     title: 'Pembahasan UTS 2019/2020',
                     course: 'Algoritma Pemrograman',
+                    course_slug: 'alpro'
                 }
             ]
         }

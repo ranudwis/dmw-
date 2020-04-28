@@ -4,7 +4,13 @@
             <v-icon>mdi-web</v-icon>
             Webtutor terbaru
 
-            <v-btn text small color="primary" class="ml-4">
+            <v-btn
+                :to="{ name: 'webtutor.index' }"
+                text
+                small
+                color="primary"
+                class="ml-4"
+            >
                 Selengkapnya
 
                 <v-icon right>mdi-chevron-right</v-icon>

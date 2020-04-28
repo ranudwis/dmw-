@@ -48,7 +48,7 @@ export default {
                     icon: 'mdi-home',
                     text: 'home'
                 }, {
-                    to: { name: 'module.index' },
+                    to: { name: 'academic.index' },
                     icon: 'mdi-book-open-page-variant',
                     text: 'soal & modul',
                 }, {

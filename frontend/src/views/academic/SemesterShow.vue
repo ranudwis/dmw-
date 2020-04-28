@@ -2,7 +2,7 @@
     <v-content>
         <v-container>
             <v-toolbar flat>
-                <v-btn icon :to="{ name: 'module.index' }" exact>
+                <v-btn icon :to="{ name: 'academic.index' }" exact>
                     <v-icon>mdi-arrow-left</v-icon>
                 </v-btn>
 

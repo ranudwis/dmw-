@@ -42,6 +42,23 @@ export default {
         return {
             tab: null
         }
+    },
+
+    // Change to module tab when the route has the hash
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.hash === '#modul') {
+                vm.tab = 1
+            }
+        })
+    },
+
+    beforeRouteUpdate(to, from, next) {
+        if (to.hash === '#modul') {
+            this.tab = 1
+        }
+
+        next()
     }
 }
 </script>
