@@ -1,0 +1,19 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.coverImage {
+    min-height: 300px;
+
+    @screen sm {
+        min-height: 500px;
+        max-height: 50vh;
+    }
+
+    @screen md {
+        min-height: 600px;
+        max-height: 60vh;
+    }
+}

@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-col v-for="webtutor in webtutors" :key="webtutor.id" cols="3">
+        <v-col v-for="webtutor in webtutors" :key="webtutor.id" cols="12" sm="6" md="4" lg="3">
             <v-card :to="{ name: 'webtutor.show', params: { slug: webtutor.slug } }">
                 <v-img src="@/assets/images/webtutorDefaultCover.jpg" max-height="200px" position="top"></v-img>
                 <v-card-title>{{ webtutor.title }}</v-card-title>

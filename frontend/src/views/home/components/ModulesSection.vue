@@ -18,7 +18,7 @@
         </h2>
 
         <v-row class="mt-4">
-            <v-col cols="6">
+            <v-col cols="12" md="6">
                 <module-item
                     v-for="module in modules"
                     :key="module.id"
@@ -27,9 +27,7 @@
                 ></module-item>
             </v-col>
 
-            <v-divider vertical></v-divider>
-
-            <v-col>
+            <v-col cols="12" md="6">
                 <module-item
                     v-for="answer in answers"
                     :key="answer.id"
