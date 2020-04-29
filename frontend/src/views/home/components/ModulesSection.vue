@@ -1,21 +1,24 @@
 <template>
     <v-container>
-        <h2 class="headline">
+        <div class="d-flex align-center">
             <v-icon>mdi-book-open-page-variant</v-icon>
-            Modul dan pembahasan terbaru
 
-            <v-btn
-                :to="{ name: 'academic.index' }"
-                text
-                small
-                color="primary"
-                class="ml-4"
-            >
-                Selengkapnya
+            <h2 class="headline ml-2">
+                Modul dan pembahasan terbaru
+            </h2>
+        </div>
 
-                <v-icon right>mdi-chevron-right</v-icon>
-            </v-btn>
-        </h2>
+        <v-btn
+            :to="{ name: 'academic.index' }"
+            text
+            small
+            color="primary"
+            class="ml-6"
+        >
+            Selengkapnya
+
+            <v-icon right>mdi-chevron-right</v-icon>
+        </v-btn>
 
         <v-row class="mt-4">
             <v-col cols="12" md="6">

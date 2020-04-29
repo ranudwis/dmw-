@@ -1,21 +1,24 @@
 <template>
     <v-container>
-        <h2 class="headline">
+        <div class="d-flex align-center">
             <v-icon>mdi-web</v-icon>
-            Webtutor terbaru
 
-            <v-btn
-                :to="{ name: 'webtutor.index' }"
-                text
-                small
-                color="primary"
-                class="ml-4"
-            >
-                Selengkapnya
+            <h2 class="headline ml-2">
+                Webtutor terbaru
+            </h2>
+        </div>
 
-                <v-icon right>mdi-chevron-right</v-icon>
-            </v-btn>
-        </h2>
+        <v-btn
+            :to="{ name: 'webtutor.index' }"
+            text
+            small
+            color="primary"
+            class="ml-6"
+        >
+            Selengkapnya
+
+            <v-icon right>mdi-chevron-right</v-icon>
+        </v-btn>
 
         <webtutor-list :webtutors="webtutors" class="mt-4"></webtutor-list>
     </v-container>
