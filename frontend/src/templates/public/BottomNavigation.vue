@@ -34,7 +34,7 @@ export default {
                     icon: 'mdi-web',
                     text: 'Webtutor'
                 }, {
-                    to: { name: 'feedback' },
+                    to: { name: 'more' },
                     icon: 'mdi-menu',
                 }
             ]

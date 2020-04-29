@@ -6,8 +6,8 @@
                 Bug, Ide, Fitur Baru, atau Kolaborasi
             </div>
 
-            <v-row class="mt-12 align-center justify-space-between">
-                <v-col cols="5">
+            <v-row class="mt-12 align-center justify-space-around">
+                <v-col cols="12" sm="5">
                     <v-text-field label="Nama" autofocus></v-text-field>
 
                     <v-text-field label="ID Line"></v-text-field>
@@ -17,9 +17,11 @@
                     <v-btn color="primary">kirim</v-btn>
                 </v-col>
 
-                <v-divider vertical></v-divider>
+                <v-col cols="12" sm="1" align-self="stretch">
+                    <v-divider :vertical="$vuetify.breakpoint.smAndUp"></v-divider>
+                </v-col>
 
-                <v-col cols="5">
+                <v-col cols="12" sm="5">
                     <v-card href="https://github.com/ranudwis/dmwplusplus/issues" target="_blank">
                         <v-card-text class="text-center">
                             <v-icon size="128" color="#24292E">mdi-github</v-icon>

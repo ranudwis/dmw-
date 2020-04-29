@@ -5,6 +5,7 @@ import Home from '@/views/home/Home'
 import WebtutorRoutes from '@/views/webtutor/routes'
 import Feedback from '@/views/feedback/Feedback'
 import AcademicRoute from '@/views/academic/routes'
+import MoreNavigation from '@/views/MoreNavigation'
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,7 @@ const routes = [
             ...WebtutorRoutes,
             ...AcademicRoute,
             { path: 'feedback', component: Feedback, name: 'feedback' },
+            { path: 'lain', component: MoreNavigation, name: 'more' },
         ]
     },
 ]
