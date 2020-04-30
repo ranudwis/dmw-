@@ -1,10 +1,10 @@
 <template>
     <v-row>
-        <v-col class="flex-grow-0">
+        <v-col class="flex-grow-0 d-none d-sm-block">
             <v-icon color="primary" x-large class="mt-4">mdi-forum</v-icon>
         </v-col>
 
-        <v-col cols="6">
+        <v-col cols="12" sm="8" md="6">
             <v-row dense>
                 <v-col>
                     <v-text-field label="Nama" autofocus></v-text-field>

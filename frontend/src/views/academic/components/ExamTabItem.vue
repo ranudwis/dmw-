@@ -2,9 +2,9 @@
     <v-tab-item>
         <exam-view-selector></exam-view-selector>
 
-        <exam-downloader class="ml-4"></exam-downloader>
+        <exam-downloader class="mb-2"></exam-downloader>
 
-        <exam-list class="mt-8"></exam-list>
+        <exam-list class="mt-6"></exam-list>
     </v-tab-item>
 </template>
 

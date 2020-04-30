@@ -1,7 +1,7 @@
 <template>
     <v-menu>
         <template #activator="{ on }">
-            <v-btn v-on="on" outlined color="primary">
+            <v-btn v-on="on" outlined color="primary" class="mr-4 mb-2">
                 Tampilkan: {{ currentViewMode }}
             </v-btn>
         </template>
