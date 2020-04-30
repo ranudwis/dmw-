@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-col cols="4">
+        <v-col cols="6" md="5" lg="4">
             <v-card>
                 <v-list-item two-line link>
                     <v-list-item-action>
@@ -17,7 +17,7 @@
 
         <v-spacer></v-spacer>
 
-        <v-col cols="4">
+        <v-col cols="6" md="5" lg="4">
             <v-card>
                 <v-list-item two-line link>
                     <v-list-item-content class="text-right">
