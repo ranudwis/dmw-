@@ -12,6 +12,25 @@
             <span>{{ navigation.text }}</span>
             <v-icon>{{ navigation.icon }}</v-icon>
         </v-btn>
+
+        <v-btn
+            v-if="$vuetify.breakpoint.xsOnly"
+            :to="{ name: 'more' }"
+        >
+            <v-icon>mdi-menu</v-icon>
+        </v-btn>
+
+        <template v-else>
+            <v-btn :to="{ name: 'feedback' }">
+                <span>Feedback</span>
+                <v-icon>mdi-message</v-icon>
+            </v-btn>
+
+            <v-btn>
+                <span>Login</span>
+                <v-icon>mdi-account</v-icon>
+            </v-btn>
+        </template>
     </v-bottom-navigation>
 </template>
 
@@ -33,9 +52,6 @@ export default {
                     to: { name: 'webtutor.index' },
                     icon: 'mdi-web',
                     text: 'Webtutor'
-                }, {
-                    to: { name: 'more' },
-                    icon: 'mdi-menu',
                 }
             ]
         }
