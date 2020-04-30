@@ -4,4 +4,3 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile.build
-    image: cloud.canister.io:5000/ranudwis/medikov2:latest

@@ -2,7 +2,6 @@ version: '3.7'
 services:
   backend:
     build: './'
-    image: cloud.canister.io:5000/ranudwis/medikov2:latest
     volumes:
       - './virtualhost.dev.conf:/etc/apache2/sites-available/000-default.conf'
       - '.:/backend'
