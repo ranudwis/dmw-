@@ -27,7 +27,7 @@
 
             <div style="width: 500px; max-width: 100%">
                 <v-text-field
-                    autofocus
+                    :autofocus="$vuetify.breakpoint.mdAndUp"
                     solo
                     rounded
                     full-width

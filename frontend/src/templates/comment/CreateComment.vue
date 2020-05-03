@@ -7,7 +7,7 @@
         <v-col cols="12" sm="8" md="6">
             <v-row dense>
                 <v-col>
-                    <v-text-field label="Nama" autofocus></v-text-field>
+                    <v-text-field label="Nama" :autofocus="$vuetify.breakpoint.mdAndUp"></v-text-field>
                 </v-col>
                 <v-col>
                     <v-text-field label="ID Line"></v-text-field>
