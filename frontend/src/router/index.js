@@ -7,7 +7,7 @@ import Feedback from '@/views/feedback/Feedback'
 import AcademicRoute from '@/views/academic/routes'
 import MoreNavigation from '@/views/MoreNavigation'
 import DashboardMain from '@/templates/dashboard/Main'
-import DashboardIndex from '@/views/dashboard/DashboardIndex'
+import DashboardRoute from '@/views/dashboard/routes'
 
 Vue.use(VueRouter)
 
@@ -26,7 +26,7 @@ const routes = [
         path: '/dashboard',
         component: DashboardMain,
         children: [
-            { path: '', component: DashboardIndex, name: 'dashboard.index' }
+            ...DashboardRoute,
         ]
     }
 ]

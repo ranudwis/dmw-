@@ -51,7 +51,7 @@ export default {
                     icon: 'mdi-clock',
                     text: 'Antrian'
                 }, "Webtutor", {
-                    to: { name: 'home' },
+                    to: { name: 'dashboard.webtutor.label' },
                     exact: true,
                     icon: 'mdi-tag',
                     text: 'Label'
@@ -60,7 +60,8 @@ export default {
                     icon: 'mdi-web-clock',
                     text: 'Menunggu Persetujuan'
                 }, {
-                    to: { },
+                    to: { name: 'dashboard.webtutor.index' },
+                    exact: true,
                     icon: 'mdi-web',
                     text: 'Artikel'
                 }, "Akademis", {
