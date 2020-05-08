@@ -16,7 +16,7 @@ WORKDIR /backend
 
 RUN docker-php-ext-install pdo_mysql
 
-RUN a2enmod rewrite
+RUN a2enmod rewrite && a2enmod proxy && a2enmod proxy_http && a2enmod proxy_wstunnel
 
 COPY --from=backenddeps /deps/vendor/ vendor/
 
