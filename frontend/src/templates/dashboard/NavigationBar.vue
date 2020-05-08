@@ -11,24 +11,14 @@
 
         <v-toolbar-title>DMW++ Admin</v-toolbar-title>
 
-        <v-toolbar-items class="ml-4">
-            <v-btn
-                v-for="(navigation, i) in navigations"
-                :key="i"
-                text
-                :to="navigation.to"
-                :exact="navigation.exact"
-            >
-
-                <v-icon left>{{ navigation.icon }}</v-icon>
-
-                {{ navigation.text}}
-            </v-btn>
-        </v-toolbar-items>
-
         <v-spacer></v-spacer>
 
         <v-toolbar-items>
+            <v-btn :to="{ name: 'home' }" exact text>
+                <v-icon left>mdi-home</v-icon>
+                home
+            </v-btn>
+
             <v-btn text>
                 <v-icon left>mdi-logout</v-icon>
                 logout
@@ -36,24 +26,3 @@
         </v-toolbar-items>
     </v-app-bar>
 </template>
-
-<script>
-export default {
-    data() {
-        return {
-            navigations: [
-                {
-                    to: { name: 'dashboard.index' },
-                    icon: 'mdi-view-dashboard',
-                    text: 'dashboard'
-                }, {
-                    to: { name: 'home' },
-                    exact: true,
-                    icon: 'mdi-home',
-                    text: 'dmw++ home',
-                }
-            ]
-        }
-    }
-}
-</script>

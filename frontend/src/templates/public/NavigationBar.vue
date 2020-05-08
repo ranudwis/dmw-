@@ -33,6 +33,11 @@
                 <v-icon left>mdi-account</v-icon>
                 login
             </v-btn>
+
+            <v-btn :to="{ name: 'dashboard.index' }" text>
+                <v-icon left>mdi-view-dashboard</v-icon>
+                dashboard
+            </v-btn>
         </v-toolbar-items>
     </v-app-bar>
 </template>
