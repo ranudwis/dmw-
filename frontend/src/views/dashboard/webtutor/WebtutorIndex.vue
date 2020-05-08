@@ -6,6 +6,18 @@
                     <v-icon>mdi-plus</v-icon>
                 </v-btn>
             </div>
+
+            <webtutor-table class="mt-4"></webtutor-table>
         </v-container>
     </v-content>
 </template>
+
+<script>
+import WebtutorTable from './components/WebtutorTable'
+
+export default {
+    components: {
+        WebtutorTable,
+    }
+}
+</script>
