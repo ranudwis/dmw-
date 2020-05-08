@@ -1,7 +1,21 @@
 <template>
     <v-content>
         <v-container>
-            label
+            <create-label></create-label>
+
+            <label-list class="mt-4"></label-list>
         </v-container>
     </v-content>
 </template>
+
+<script>
+import CreateLabel from './components/CreateLabel'
+import LabelList from './components/LabelList'
+
+export default {
+    components: {
+        CreateLabel,
+        LabelList,
+    }
+}
+</script>

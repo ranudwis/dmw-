@@ -3,6 +3,10 @@ module.exports = {
         "vuetify"
     ],
 
+    devServer: {
+        disableHostCheck: true,
+    },
+
     pwa: {
         name: 'DMW++',
         themeColor: '#03A9F4',
