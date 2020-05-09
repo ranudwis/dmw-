@@ -2,13 +2,11 @@
 <ruleset name="DMW++ Coding Standard" namespace="Dmwplusplus\CS\Standard">
     <description>Coding standard for DMW++ project</description>
 
-    <file>./app</file>
-    <file>./routes</file>
-
-    <exclude-pattern>*/tests/*</exclude-pattern>
-    <exclude-pattern>*/database/*</exclude-pattern>
-
     <autoload>./vendor/autoload.php</autoload>
+
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
 
     <rule ref="PSR1" />
     <rule ref="PSR12" />
