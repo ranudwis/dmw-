@@ -5,10 +5,6 @@ services:
     volumes:
       - './virtualhost.dev.conf:/etc/apache2/sites-available/000-default.conf'
       - '.:/backend'
-      - type: volume
-        source: frontend_files
-        target: /frontend
-        read_only: true
     ports:
       - '8000:80'
     depends_on:
@@ -17,12 +13,12 @@ services:
     environment:
       APP_KEY: 'base64:gHZOaJNVvWhhJHjVrNfYeSCCRsvwGNonnHUp5TV8Wws='
       DB_HOST: 'database'
-      DB_DATABASE: 'medikov2'
+      DB_DATABASE: 'dmwplusplus'
       DB_USERNAME: 'root'
       DB_PASSWORD: 'root'
 
   migration:
-    image: cloud.canister.io:5000/ranudwis/medikov2:latest
+    build: './'
     volumes:
       - '.:/backend'
     depends_on:
@@ -31,19 +27,15 @@ services:
     environment:
       APP_KEY: 'base64:gHZOaJNVvWhhJHjVrNfYeSCCRsvwGNonnHUp5TV8Wws='
       DB_HOST: 'database'
-      DB_DATABASE: 'medikov2'
+      DB_DATABASE: 'dmwplusplus'
       DB_USERNAME: 'root'
       DB_PASSWORD: 'root'
     command: ['./artisan', 'migrate']
 
   frontend:
     build: './frontend'
-    volumes:
-      - './frontend:/frontend'
-      - type: volume
-        source: frontend_files
-        target: /frontend/dist
-
+    ports:
+      - '8080'
     environment:
       VUE_APP_BASE_URL: 'http://localhost:8000/'
       VUE_APP_ASSET_URL: 'http://localhost:8000/'
@@ -53,9 +45,9 @@ services:
       VUE_APP_API_VERSION: 'v1'
 
   database:
-    image: 'mariadb:10.4.11'
+    image: 'mysql:latest'
     environment:
-      MYSQL_DATABASE: 'medikov2'
+      MYSQL_DATABASE: 'dmwplusplus'
       MYSQL_ROOT_PASSWORD: 'root'
     ports:
       - '3306'
@@ -64,4 +56,3 @@ services:
 
 volumes:
   database_data:
-  frontend_files:
