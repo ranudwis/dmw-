@@ -12,24 +12,39 @@
             <v-card-title>Buat Label</v-card-title>
 
             <v-card-text>
-                <v-text-field autofocus label="Label"></v-text-field>
+                <v-text-field v-model="labelName" autofocus label="Label"></v-text-field>
             </v-card-text>
 
             <v-card-actions>
                 <v-spacer></v-spacer>
 
                 <v-btn @click="dialog = false" text>batal</v-btn>
-                <v-btn @click="dialog = false" text color="primary">buat</v-btn>
+                <v-btn @click="save()" text color="primary">buat</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
+import api from '@/api/api'
+
 export default {
     data() {
         return {
             dialog: false,
+            labelName: null,
+        }
+    },
+
+    methods: {
+        save() {
+            api
+                .post('label', {
+                    name: this.labelName
+                })
+                .then(response => {
+                    console.log(response)
+                })
         }
     }
 }
