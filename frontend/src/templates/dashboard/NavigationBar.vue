@@ -1,6 +1,9 @@
 <template>
     <v-app-bar app clipped-left dark>
+        <v-app-bar-nav-icon v-if="$vuetify.breakpoint.mdAndDown"></v-app-bar-nav-icon>
+
         <v-img
+            v-if="$vuetify.breakpoint.smAndUp"
             alt="Logo"
             src="@/assets/images/logo_white.png"
             max-height="90%"

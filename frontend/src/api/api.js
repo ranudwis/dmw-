@@ -1,5 +1,5 @@
 import axios from 'axios'
-import axiosRetry from 'axiosRetry'
+import axiosRetry from 'axios-retry'
 
 let api = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL + 'api/' + process.env.VUE_APP_API_VERSION + '/'
