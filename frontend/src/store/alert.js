@@ -23,14 +23,6 @@ const actions = {
         commit('SET_MESSAGE', message)
         commit('SET_TYPE', type)
     },
-
-    success({ dispatch }, message) {
-        dispatch('alert', { type: 'success', message })
-    },
-
-    failed({ dispatch }, message) {
-        dispatch('alert', { type: 'failed', message })
-    }
 }
 
 export default store(alert, { actions, getters })

@@ -27,6 +27,7 @@
 
 <script>
 import api from '@/api/api'
+import alert from '@/dmw/alert'
 
 export default {
     data() {
@@ -42,9 +43,16 @@ export default {
                 .post('label', {
                     name: this.labelName
                 })
-                .then(response => {
-                    console.log(response)
+                .then(() => {
+                    alert.success('label.created')
+
+                    this.reset()
                 })
+        },
+
+        reset() {
+            this.dialog = false
+            this.labelName = null
         }
     }
 }
