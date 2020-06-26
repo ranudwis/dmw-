@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container class="mt-8">
             <view-mode-selector></view-mode-selector>
 
@@ -7,7 +7,7 @@
 
             <course-list></course-list>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

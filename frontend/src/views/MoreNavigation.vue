@@ -1,6 +1,6 @@
 <template>
     <!-- TODO: Refactoring file location -->
-    <v-content>
+    <v-main>
         <v-container>
             <v-card v-for="(navigation, i) in navigations" :key="i" :to="navigation.to" class="my-2">
                 <v-list-item>
@@ -18,7 +18,7 @@
                 </v-list-item>
             </v-card>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

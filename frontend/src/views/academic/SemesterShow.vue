@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container>
             <v-toolbar flat>
                 <v-btn icon :to="{ name: 'academic.index' }" exact>
@@ -13,7 +13,7 @@
 
             <course-list class="mt-4"></course-list>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

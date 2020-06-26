@@ -19,15 +19,16 @@
                 <v-spacer></v-spacer>
 
                 <v-btn @click="dialog = false" text>batal</v-btn>
-                <v-btn @click="save()" text color="primary">buat</v-btn>
+                <v-btn @click="save()" text color="primary" :loading="isLoading('label')">buat</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
-import api from '@/api/api'
+import api from '@/api'
 import alert from '@/dmw/alert'
+import { isLoading } from '@/dmw/loader'
 
 export default {
     data() {
@@ -42,7 +43,7 @@ export default {
             api
                 .post('label', {
                     name: this.labelName
-                })
+                }, { loader: 'label' })
                 .then(() => {
                     alert.success('label.created')
 
@@ -53,7 +54,9 @@ export default {
         reset() {
             this.dialog = false
             this.labelName = null
-        }
+        },
+
+        isLoading
     }
 }
 </script>

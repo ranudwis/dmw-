@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container>Dashboard index</v-container>
-    </v-content>
+    </v-main>
 </template>

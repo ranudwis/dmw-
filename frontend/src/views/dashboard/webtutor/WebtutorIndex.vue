@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container>
             <div class="text-right">
                 <v-btn fab color="primary" :to="{ name: 'dashboard.webtutor.create' }">
@@ -9,7 +9,7 @@
 
             <webtutor-table class="mt-4"></webtutor-table>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

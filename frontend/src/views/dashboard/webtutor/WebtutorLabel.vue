@@ -1,11 +1,11 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container>
             <create-label></create-label>
 
             <label-list class="mt-4"></label-list>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

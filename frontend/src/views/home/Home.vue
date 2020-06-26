@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <jumbotron-section class="mb-4"></jumbotron-section>
 
         <webtutor-section class="my-4"></webtutor-section>
@@ -7,7 +7,7 @@
         <modules-section class="my-4"></modules-section>
 
         <footer-section class="mt-8"></footer-section>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

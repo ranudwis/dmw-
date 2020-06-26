@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container class="mt-12">
             <div class="display-1 text-center font-weight-light">Buat DMW++ menjadi lebih baik!</div>
             <div class="subtitle text-center">
@@ -38,5 +38,5 @@
                 </v-col>
             </v-row>
         </v-container>
-    </v-content>
+    </v-main>
 </template>

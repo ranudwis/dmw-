@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container>
             <create-webtutor-toolbar></create-webtutor-toolbar>
 
@@ -7,7 +7,7 @@
 
             <webtutor-form></webtutor-form>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

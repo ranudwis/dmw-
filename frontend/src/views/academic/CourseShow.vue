@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container>
             <v-toolbar flat>
                 <v-btn icon :to="{ name: 'semester.show', params: { slug: '1' } }">
@@ -25,7 +25,7 @@
                 <module-tab-item class="pa-4"></module-tab-item>
             </v-tabs-items>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

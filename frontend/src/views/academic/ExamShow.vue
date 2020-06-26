@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container>
             <v-toolbar flat>
                 <v-btn icon :to="{ name: 'course.show', params: { slug: $route.params.slug } }" exact>
@@ -58,7 +58,7 @@
 
             <comment-list class="mt-4"></comment-list>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>
