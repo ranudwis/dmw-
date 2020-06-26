@@ -43,4 +43,32 @@ class LabelController extends Controller
             'exists' => $exists
         ];
     }
+
+    public function update(Request $request, $labelId)
+    {
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $updated = DB::table('labels')
+            ->where('id', $labelId)
+            ->update([
+                'name' => $request->name
+            ]);
+
+        return [
+            'updated' => (bool) $updated
+        ];
+    }
+
+    public function delete($labelId)
+    {
+        $deleted = DB::table('labels')
+            ->where('id', $labelId)
+            ->delete();
+
+        return [
+            'deleted' => (bool) $deleted
+        ];
+    }
 }

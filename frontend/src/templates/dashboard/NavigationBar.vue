@@ -16,6 +16,11 @@
 
         <v-spacer></v-spacer>
 
+        <v-progress-circular
+            v-if="isLoading('dashboard')"
+            indeterminate
+        ></v-progress-circular>
+
         <v-toolbar-items>
             <v-btn :to="{ name: 'home' }" exact text>
                 <v-icon left>mdi-home</v-icon>
@@ -29,3 +34,13 @@
         </v-toolbar-items>
     </v-app-bar>
 </template>
+
+<script>
+import { isLoading } from '@/dmw/loader'
+
+export default {
+    methods: {
+        isLoading
+    }
+}
+</script>

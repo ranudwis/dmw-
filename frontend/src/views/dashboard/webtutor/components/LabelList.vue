@@ -17,13 +17,9 @@
                 </v-list-item-content>
 
                 <v-list-item-icon>
-                    <v-btn icon>
-                        <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
+                    <edit-label @edited="updateList" :label="label"></edit-label>
 
-                    <v-btn icon color="red">
-                        <v-icon>mdi-delete</v-icon>
-                    </v-btn>
+                    <delete-label @deleted="updateList" :label="label"></delete-label>
                 </v-list-item-icon>
             </v-list-item>
         </v-card>
@@ -31,22 +27,33 @@
 </template>
 
 <script>
+import api from '@/api'
+import DeleteLabel from './DeleteLabel'
+import EditLabel from './EditLabel'
+
 export default {
+    components: {
+        EditLabel,
+        DeleteLabel,
+    },
+
     data() {
         return {
-            labels: [
-                {
-                    id: 1,
-                    name: 'PHP'
-                }, {
-                    id: 2,
-                    name: 'Javascript'
-                }, {
-                    id: 3,
-                    name: 'OOT'
-                }
-            ]
+            labels: []
         }
+    },
+
+    methods: {
+        updateList() {
+            api.get('label', { loader: 'dashboard' })
+                .then(response => {
+                    this.labels = response.data.labels
+                })
+        }
+    },
+
+    created() {
+        this.updateList()
     }
 }
 </script>

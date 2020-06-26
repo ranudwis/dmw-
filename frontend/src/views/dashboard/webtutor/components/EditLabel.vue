@@ -2,16 +2,14 @@
     <small-dialog
         v-model="dialog"
         @ok="save"
-        title="Buat Label"
-        okButton="buat"
+        title="Edit Label"
+        okButton="edit"
         loading="label"
     >
         <template #activator="{ on }">
-            <div class="text-right">
-                <v-btn v-on="on" fab color="primary">
-                    <v-icon>mdi-plus</v-icon>
-                </v-btn>
-            </div>
+            <v-btn v-on="on" icon>
+                <v-icon>mdi-pencil</v-icon>
+            </v-btn>
         </template>
 
         <v-text-field v-model="labelName" autofocus label="Nama Label"></v-text-field>
@@ -28,6 +26,13 @@ export default {
         SmallDialog,
     },
 
+    props: {
+        label: {
+            type: Object,
+            required: true
+        }
+    },
+
     data() {
         return {
             dialog: false,
@@ -37,14 +42,13 @@ export default {
 
     methods: {
         save() {
-            api
-                .post('label', {
+            api.patch(`label/${this.label.id}`, {
                     name: this.labelName
                 }, { loader: 'label' })
                 .then(() => {
-                    alert.success('label.created')
+                    alert.success('label.edited')
 
-                    this.$emit('created')
+                    this.$emit('edited')
                     this.reset()
                 })
         },
@@ -53,6 +57,10 @@ export default {
             this.dialog = false
             this.labelName = null
         },
+    },
+
+    created() {
+        this.labelName = this.label.name
     }
 }
 </script>

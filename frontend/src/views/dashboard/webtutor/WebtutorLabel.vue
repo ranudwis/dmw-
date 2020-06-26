@@ -1,9 +1,9 @@
 <template>
     <v-main>
         <v-container>
-            <create-label></create-label>
+            <create-label @created="updateList"></create-label>
 
-            <label-list class="mt-4"></label-list>
+            <label-list ref="list" class="mt-4"></label-list>
         </v-container>
     </v-main>
 </template>
@@ -16,6 +16,12 @@ export default {
     components: {
         CreateLabel,
         LabelList,
+    },
+
+    methods: {
+        updateList() {
+            this.$refs.list.updateList()
+        }
     }
 }
 </script>

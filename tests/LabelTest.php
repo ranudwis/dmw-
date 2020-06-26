@@ -29,6 +29,7 @@ class LabelTest extends TestCase
     {
         $this->postLabel();
 
+        $this->assertResponseOk();
         $this->seeJsonEquals([
             'created' => true
         ]);
@@ -48,6 +49,7 @@ class LabelTest extends TestCase
 
         $this->json('GET', 'label');
 
+        $this->assertResponseOk();
         $this->seeJsonEquals([
             'labels' => [
                 [
@@ -67,6 +69,7 @@ class LabelTest extends TestCase
 
         $this->json('GET', 'label/' . $this->labelName . '/isExists');
 
+        $this->assertResponseOk();
         $this->seeJsonEquals([
             'exists' => true
         ]);
@@ -81,8 +84,73 @@ class LabelTest extends TestCase
 
         $this->json('GET', 'label/someRandomLabel/isExists');
 
+        $this->assertResponseOk();
         $this->seeJsonEquals([
             'exists' => false
+        ]);
+    }
+
+    /**
+     * @depends testCanCreateLabel
+     */
+    public function testCanUpdateLabel()
+    {
+        $this->postLabel();
+        $labelId = DB::table('labels')->first()->id;
+        $newName = $this->faker->word;
+
+        $this->json('PATCH', 'label/' . $labelId, [
+            'name' => $newName
+        ]);
+
+        $this->assertResponseOk();
+        $this->seeJsonEquals([
+            'updated' => true
+        ]);
+        $this->notSeeInDatabase('labels', [
+            'id' => $labelId,
+            'name' => $this->labelName,
+        ]);
+        $this->seeInDatabase('labels', [
+            'id' => $labelId,
+            'name' => $newName
+        ]);
+    }
+
+    /**
+     * @depends testCanCreateLabel
+     */
+    public function testCanNotUpdateLabelWithNonExistentId()
+    {
+        $notExistId = $this->faker->randomDigit;
+        $newName = $this->faker->word;
+
+        $this->json('PATCH', 'label/' . $notExistId, [
+            'name' => $newName
+        ]);
+
+        $this->assertResponseOk();
+        $this->seeJsonEquals([
+            'updated' => false
+        ]);
+    }
+
+    /**
+     * @depends testCanCreateLabel
+     */
+    public function testCanDeleteLabel()
+    {
+        $this->postLabel();
+        $labelId = DB::table('labels')->first()->id;
+
+        $this->json('DELETE', 'label/' . $labelId);
+
+        $this->assertResponseOk();
+        $this->seeJsonEquals([
+            'deleted' => true
+        ]);
+        $this->notSeeInDatabase('labels', [
+            'id' => $labelId
         ]);
     }
 }
