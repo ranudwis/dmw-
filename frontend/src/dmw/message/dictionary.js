@@ -3,5 +3,9 @@ export default {
         created: 'Label baru telah dibuat',
         edited: 'Label telah diedit',
         deleted: 'Label telah dihapus',
-    }
+    },
+
+    webtutor: {
+        created: 'Webtutor telah dibuat',
+    },
 }

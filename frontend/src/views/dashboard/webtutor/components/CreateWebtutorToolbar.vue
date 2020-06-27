@@ -21,18 +21,21 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn color="primary">
+        <v-btn @click="$emit('publish')" color="primary" :loading="isLoading('publish')">
             Publish
         </v-btn>
     </v-toolbar>
 </template>
 
 <script>
+import { isLoading } from '@/dmw/loader'
 export default {
     data() {
         return {
             exitDialog: false,
         }
-    }
+    },
+
+    methods: { isLoading }
 }
 </script>
