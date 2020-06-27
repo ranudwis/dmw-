@@ -2,7 +2,7 @@
     <small-dialog
         v-model="dialog"
         @ok="deleteLabel"
-        :title="`Hapus label ${label.name}?`"
+        :title="`Hapus label: ${label.name}?`"
         subtitle="Aksi tidak dapat dikembalikan"
         color="red"
         loading="label"

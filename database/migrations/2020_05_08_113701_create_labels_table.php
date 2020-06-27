@@ -15,7 +15,8 @@ class CreateLabelsTable extends Migration
     {
         Schema::create('labels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->index();
+            $table->string('slug')->index();
+            $table->string('name');
         });
     }
 

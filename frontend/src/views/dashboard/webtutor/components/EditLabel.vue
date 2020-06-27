@@ -13,10 +13,12 @@
         </template>
 
         <v-text-field v-model="labelName" autofocus label="Nama Label"></v-text-field>
+        <v-text-field v-model="labelSlug" label="Nama Singkat"></v-text-field>
     </small-dialog>
 </template>
 
 <script>
+import { kebabCase } from 'lodash'
 import api from '@/api'
 import alert from '@/dmw/alert'
 import SmallDialog from '@/templates/dialog/SmallDialog'
@@ -37,13 +39,21 @@ export default {
         return {
             dialog: false,
             labelName: null,
+            labelSlug: null,
+        }
+    },
+
+    watch: {
+        labelName(to) {
+            this.labelSlug = kebabCase(to)
         }
     },
 
     methods: {
         save() {
             api.patch(`label/${this.label.id}`, {
-                    name: this.labelName
+                    name: this.labelName,
+                    slug: this.labelSlug,
                 }, { loader: 'label' })
                 .then(() => {
                     alert.success('label.edited')
@@ -56,11 +66,13 @@ export default {
         reset() {
             this.dialog = false
             this.labelName = null
+            this.labelSlug = null
         },
     },
 
     created() {
         this.labelName = this.label.name
+        this.labelSlug = this.label.slug
     }
 }
 </script>

@@ -20,12 +20,14 @@ class LabelController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
+            'slug' => 'required',
         ]);
 
         DB::table('labels')
             ->insert([
-                'name' => $request->name
+                'name' => $request->name,
+                'slug' => $request->slug,
             ]);
 
         return [
@@ -33,10 +35,10 @@ class LabelController extends Controller
         ];
     }
 
-    public function checkExistance($name)
+    public function checkExistance($slug)
     {
         $exists = DB::table('labels')
-            ->where('name', $name)
+            ->where('slug', $slug)
             ->exists();
 
         return [
@@ -47,13 +49,15 @@ class LabelController extends Controller
     public function update(Request $request, $labelId)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
+            'slug' => 'required',
         ]);
 
         $updated = DB::table('labels')
             ->where('id', $labelId)
             ->update([
-                'name' => $request->name
+                'name' => $request->name,
+                'slug' => $request->slug,
             ]);
 
         return [

@@ -9,19 +9,22 @@ class LabelTest extends TestCase
     use DatabaseMigrations;
     use WithFaker;
 
-    private $labelName;
+    private $name;
+    private $slug;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->labelName = $this->faker->word;
+        $this->name = $this->faker->words(2, true);
+        $this->slug = $this->faker->word;
     }
 
     private function postLabel()
     {
         $this->json('POST', 'label', [
-            'name' => $this->labelName
+            'name' => $this->name,
+            'slug' => $this->slug
         ]);
     }
 
@@ -34,10 +37,9 @@ class LabelTest extends TestCase
             'created' => true
         ]);
         $this->seeInDatabase('labels', [
-            'name' => $this->labelName
+            'name' => $this->name,
+            'slug' => $this->slug,
         ]);
-
-        $this->json('GET', 'label');
     }
 
     /**
@@ -54,7 +56,8 @@ class LabelTest extends TestCase
             'labels' => [
                 [
                     'id' => '1',
-                    'name' => $this->labelName
+                    'name' => $this->name,
+                    'slug' => $this->slug
                 ]
             ]
         ]);
@@ -67,7 +70,7 @@ class LabelTest extends TestCase
     {
         $this->postLabel();
 
-        $this->json('GET', 'label/' . $this->labelName . '/isExists');
+        $this->json('GET', 'label/' . $this->slug . '/isExists');
 
         $this->assertResponseOk();
         $this->seeJsonEquals([
@@ -97,10 +100,12 @@ class LabelTest extends TestCase
     {
         $this->postLabel();
         $labelId = DB::table('labels')->first()->id;
-        $newName = $this->faker->word;
+        $newName = $this->faker->words(2, true);
+        $newSlug = $this->faker->word;
 
         $this->json('PATCH', 'label/' . $labelId, [
-            'name' => $newName
+            'name' => $newName,
+            'slug' => $newSlug,
         ]);
 
         $this->assertResponseOk();
@@ -109,11 +114,13 @@ class LabelTest extends TestCase
         ]);
         $this->notSeeInDatabase('labels', [
             'id' => $labelId,
-            'name' => $this->labelName,
+            'name' => $this->name,
+            'slug' => $this->slug,
         ]);
         $this->seeInDatabase('labels', [
             'id' => $labelId,
-            'name' => $newName
+            'name' => $newName,
+            'slug' => $newSlug
         ]);
     }
 
@@ -123,10 +130,12 @@ class LabelTest extends TestCase
     public function testCanNotUpdateLabelWithNonExistentId()
     {
         $notExistId = $this->faker->randomDigit;
-        $newName = $this->faker->word;
+        $newName = $this->faker->words(2, true);
+        $newSlug = $this->faker->word;
 
         $this->json('PATCH', 'label/' . $notExistId, [
-            'name' => $newName
+            'name' => $newName,
+            'slug' => $newSlug,
         ]);
 
         $this->assertResponseOk();
