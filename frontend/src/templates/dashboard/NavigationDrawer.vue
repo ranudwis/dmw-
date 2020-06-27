@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer app width="280" clipped>
+    <v-navigation-drawer v-model="navigationDrawer" app width="280" clipped>
         <v-list nav>
             <template
                 v-for="(navigation, i) in navigations"
@@ -29,7 +29,13 @@
 </template>
 
 <script>
+import { sync } from 'vuex-pathify'
+
 export default {
+    computed: {
+        navigationDrawer: sync('dashboard/navigationDrawer')
+    },
+
     data() {
         return {
             navigations: [

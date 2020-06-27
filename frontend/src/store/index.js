@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import pathify from 'vuex-pathify'
 import alert from './alert'
 import loader from './loader'
+import dashboard from './dashboard'
 
 Vue.use(Vuex)
 
@@ -11,5 +12,6 @@ export default new Vuex.Store({
     modules: {
         alert,
         loader,
+        dashboard,
     }
 })

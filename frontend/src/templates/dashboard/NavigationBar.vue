@@ -1,6 +1,9 @@
 <template>
     <v-app-bar app clipped-left dark>
-        <v-app-bar-nav-icon v-if="$vuetify.breakpoint.mdAndDown"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon
+            v-if="$vuetify.breakpoint.mdAndDown"
+            @click="navigationDrawer = ! navigationDrawer"
+        ></v-app-bar-nav-icon>
 
         <v-img
             v-if="$vuetify.breakpoint.smAndUp"
@@ -36,9 +39,14 @@
 </template>
 
 <script>
+import { sync } from 'vuex-pathify'
 import { isLoading } from '@/dmw/loader'
 
 export default {
+    computed: {
+        navigationDrawer: sync('dashboard/navigationDrawer')
+    },
+
     methods: {
         isLoading
     }
