@@ -7,5 +7,6 @@ export default {
 
     webtutor: {
         created: 'Webtutor telah dibuat',
+        deleted: 'Webtutor telah dihapus'
     },
 }

@@ -2,7 +2,14 @@
     <div>
         <v-text-field v-model="title" label="Judul"></v-text-field>
 
-        <v-combobox
+        <v-file-input
+            v-model="cover"
+            label="Gambar cover"
+            prepend-icon="mdi-image"
+            accept="image/*"
+        ></v-file-input>
+
+        <v-autocomplete
             v-model="selectedLabels"
             :items="labels"
             label="Label"
@@ -10,7 +17,7 @@
             chips
             deletable-chips
             :loading="! labels"
-        ></v-combobox>
+        ></v-autocomplete>
 
         <tiptap-vuetify
             v-model="article"
@@ -33,6 +40,7 @@ export default {
         return {
             labels: null,
             title: null,
+            cover: null,
             selectedLabels: null,
             article: null,
 
@@ -65,6 +73,10 @@ export default {
             this.updateArticle()
         },
 
+        cover() {
+            this.updateArticle()
+        },
+
         selectedLabels() {
             this.updateArticle()
         },
@@ -82,6 +94,7 @@ export default {
         updateArticle() {
             this.$emit('input', {
                 title: this.title,
+                cover: this.cover,
                 labels: this.selectedLabels,
                 article: this.article
             })
@@ -89,6 +102,7 @@ export default {
 
         updateOwnArticle() {
             this.title = this.value.title
+            this.cover = this.value.cover
             this.selectedLabels = this.value.labels
             this.article = this.value.article
         }

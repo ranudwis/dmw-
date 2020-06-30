@@ -29,6 +29,7 @@ export default {
             volunteer: null,
             article: {
                 title: null,
+                cover: null,
                 labels: [],
                 article: null,
             },
@@ -37,12 +38,19 @@ export default {
 
     methods: {
         publish() {
-            api.post('article', {
-                volunteer: this.volunteer,
-                title: this.article.title,
-                labels: this.article.labels.map(e => e.value),
-                article: this.article.article,
-            }, { loader: 'publish' })
+            const data = new FormData()
+            data.append('volunteer', this.volunteer)
+            data.append('title', this.article.title)
+            data.append('cover', this.article.cover)
+            data.append('article', this.article.article)
+            this.article.labels.forEach(e => data.append('labels[]', e))
+
+            api.post('article', data, {
+                loader: 'publish',
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then(response => {
                     if (response.data.created) {
                         alert.success('webtutor.created')
@@ -51,6 +59,7 @@ export default {
                         this.volunteer = null
                         this.article = {
                             title: null,
+                            cover: null,
                             labels: [],
                             article: null,
                         }

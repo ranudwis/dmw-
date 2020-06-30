@@ -13,20 +13,21 @@
 
         <tbody>
             <tr
-                v-for="webtutor in webtutors"
-                :key="webtutor.id"
+                v-for="article in articles"
+                :key="article.id"
             >
                 <td>
-                    {{ webtutor.title }}
+                    {{ article.title }}
                 </td>
                 <td>
                     <v-btn icon>
                         <v-icon>mdi-pencil</v-icon>
                     </v-btn>
 
-                    <v-btn icon color="red">
-                        <v-icon>mdi-delete</v-icon>
-                    </v-btn>
+                    <delete-webtutor-article
+                        @deleted="update"
+                        :webtutor="article"
+                    ></delete-webtutor-article>
                 </td>
             </tr>
         </tbody>
@@ -34,31 +35,31 @@
 </template>
 
 <script>
+import api from '@/api'
+import DeleteWebtutorArticle from './DeleteWebtutorArticle'
+
 export default {
+    components: {
+        DeleteWebtutorArticle,
+    },
+
     data() {
         return {
-            webtutors: [
-                {
-                    id: 1,
-                    title: 'Cara membuat sesuatu dengan sesuatu yang lain'
-                }, {
-                    id: 2,
-                    title: 'Cara membuat sesuatu dengan sesuatu yang lain'
-                }, {
-                    id: 3,
-                    title: 'Cara membuat sesuatu dengan sesuatu yang lain'
-                }, {
-                    id: 4,
-                    title: 'Cara membuat sesuatu dengan sesuatu yang lain'
-                }, {
-                    id: 5,
-                    title: 'Cara membuat sesuatu dengan sesuatu yang lain'
-                }, {
-                    id: 6,
-                    title: 'Cara membuat sesuatu dengan sesuatu yang lain'
-                }
-            ]
+            articles: []
         }
+    },
+
+    methods: {
+        update() {
+            api.get('article', { loader: 'dashboard' })
+                .then(response => {
+                    this.articles = response.data.articles
+                })
+        }
+    },
+
+    created() {
+        this.update()
     }
 }
 </script>

@@ -17,6 +17,7 @@ class CreateArticlesTable extends Migration
             $table->bigIncrements('id');
             $table->string('volunteer')->nullable();
             $table->string('title');
+            $table->string('cover')->nullable();
             $table->text('article');
             $table->timestamps();
         });
