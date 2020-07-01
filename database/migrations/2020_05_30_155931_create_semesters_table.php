@@ -15,6 +15,7 @@ class CreateSemestersTable extends Migration
     {
         Schema::create('semesters', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->enum('type', ['even', 'odd']);
             $table->string('slug')->index();
             $table->string('title');
         });
