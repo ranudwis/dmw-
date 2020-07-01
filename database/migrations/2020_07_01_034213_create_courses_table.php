@@ -18,7 +18,7 @@ class CreateCoursesTable extends Migration
             $table->unsignedBigInteger('semester_id')->nullable();
             $table->string('slug')->index();
             $table->string('code')->index();
-            $table->string('name')->index();
+            $table->string('title')->index();
             $table->integer('credit');
             $table->text('description');
             $table->boolean('is_visible')->default(true);
