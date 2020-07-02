@@ -45,7 +45,7 @@ export default {
                     icon: 'mdi-view-dashboard',
                     text: 'Dashboard'
                 }, {
-                    to: { },
+                    to: { name: 'dashboard.exam.index' },
                     icon: 'mdi-head-question',
                     text: 'Ujian'
                 }, {
