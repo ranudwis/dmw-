@@ -79,9 +79,9 @@ export default {
                     icon: 'mdi-file-clock',
                     text: 'Menunggu persetujuan',
                 }, {
-                    to: { name: 'dashboard.academic.index' },
+                    to: { name: 'dashboard.academic.course' },
                     icon: 'mdi-view-list',
-                    text: 'Kuliah'
+                    text: 'Mata Kuliah'
                 }
             ]
         }

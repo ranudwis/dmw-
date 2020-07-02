@@ -10,7 +10,7 @@
             <v-card
                 v-for="course in courses"
                 :key="course.id"
-                link
+                :to="{ name: 'dashboard.academic.course.show', params: {slug: course.slug } }"
                 class="my-2"
             >
                 <v-list-item two-line>

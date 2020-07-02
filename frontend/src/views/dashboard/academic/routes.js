@@ -3,5 +3,6 @@ import dashboard from '@/router/dashboard'
 const component = dashboard('academic')
 
 export default [
-    { path: 'akademis', component: component('AcademicIndex'), name: 'dashboard.academic.index' },
+    { path: 'matkul', component: component('CourseIndex'), name: 'dashboard.academic.course' },
+    { path: 'matkul/:slug', component: component('CourseShow'), name: 'dashboard.academic.course.show' },
 ]

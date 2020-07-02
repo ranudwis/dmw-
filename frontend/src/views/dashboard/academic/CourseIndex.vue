@@ -1,7 +1,7 @@
 <template>
     <v-main>
         <v-container>
-            <course-search-bar v-model="search"></course-search-bar>
+            <course-search-bar v-model="search" class="my-4"></course-search-bar>
 
             <course-list :search="search"></course-list>
         </v-container>
