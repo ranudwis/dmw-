@@ -11,7 +11,7 @@
             <v-list-item
                 v-for="(viewMode, idx) in viewModes"
                 :key="idx"
-                @click="currentViewModeIdx = idx"
+                @click="selectViewModeIdx(idx)"
             >
                 <v-list-item-icon>
                     <v-icon>{{ viewMode.icon }}</v-icon>
@@ -33,9 +33,11 @@ export default {
             viewModes: [
                 {
                     icon: 'mdi-view-agenda',
+                    slug: 'semester',
                     title: 'Semester'
                 }, {
                     icon: 'mdi-view-list',
+                    slug: 'course',
                     title: 'Semua'
                 }
             ]
@@ -45,6 +47,14 @@ export default {
     computed: {
         currentViewMode() {
             return this.viewModes[this.currentViewModeIdx]
+        }
+    },
+
+    methods: {
+        selectViewModeIdx(idx) {
+            this.currentViewModeIdx = idx
+
+            this.$emit('input', this.viewModes[idx].slug)
         }
     }
 }

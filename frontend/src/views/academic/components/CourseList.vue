@@ -1,6 +1,13 @@
 <template>
     <div>
+        <v-skeleton-loader
+            v-if="! courses"
+            type="list-item-avatar-two-line@5"
+            class="my-4"
+        ></v-skeleton-loader>
+
         <v-card
+            v-else
             v-for="course in courses"
             :key="course.id"
             :to="{ name: 'course.show', params: { slug: course.slug } }"
@@ -26,31 +33,9 @@
 
 <script>
 export default {
-    data() {
-        return {
-            courses: [
-                {
-                    id: 1,
-                    slug: 'alpro',
-                    title: 'Dasar Pemrograman',
-                    code: 'AIK1234'
-                }, {
-                    id: 2,
-                    slug: 'alpro',
-                    title: 'Dasar Pemrograman',
-                    code: 'AIK1234'
-                }, {
-                    id: 3,
-                    slug: 'alpro',
-                    title: 'Dasar Pemrograman',
-                    code: 'AIK1234'
-                }, {
-                    id: 4,
-                    slug: 'alpro',
-                    title: 'Dasar Pemrograman',
-                    code: 'AIK1234'
-                }
-            ]
+    props: {
+        courses: {
+            type: Array,
         }
     }
 }

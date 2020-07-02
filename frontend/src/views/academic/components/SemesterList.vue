@@ -1,6 +1,13 @@
 <template>
     <div>
+        <v-skeleton-loader
+            v-if="! semesters"
+            type="list-item-avatar@10"
+            class="my-4"
+        ></v-skeleton-loader>
+
         <v-card
+            v-else
             v-for="semester in semesters"
             :key="semester.id"
             :to="{ name: 'semester.show', params: { slug: semester.slug } }"
@@ -26,53 +33,20 @@
 </template>
 
 <script>
+import api from '@/api'
+
 export default {
     data() {
         return {
-            semesters: [
-                {
-                    id: 1,
-                    slug: '1',
-                    title: 'Semester 1'
-                }, {
-                    id: 2,
-                    slug: '2',
-                    title: 'Semester 2'
-                }, {
-                    id: 3,
-                    slug: '3',
-                    title: 'Semester 3'
-                }, {
-                    id: 4,
-                    slug: '4',
-                    title: 'Semester 4'
-                }, {
-                    id: 5,
-                    slug: '5',
-                    title: 'Semester 5'
-                }, {
-                    id: 6,
-                    slug: '6',
-                    title: 'Semester 6'
-                }, {
-                    id: 7,
-                    slug: '7',
-                    title: 'Semester 7'
-                }, {
-                    id: 8,
-                    slug: '8',
-                    title: 'Semester 7'
-                }, {
-                    id: 9,
-                    slug: 'pilihanganjil',
-                    title: 'Pilihan Semester Ganjil'
-                }, {
-                    id: 10,
-                    slug: 'pilihangenap',
-                    title: 'Pilihan Semester Genap'
-                }
-            ]
+            semesters: null
         }
+    },
+
+    created() {
+        api.get('semester')
+            .then(response => {
+                this.semesters = response.data.semesters
+            })
     }
 }
 </script>

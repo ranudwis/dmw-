@@ -4,6 +4,7 @@ import pathify from 'vuex-pathify'
 import alert from './alert'
 import loader from './loader'
 import dashboard from './dashboard'
+import notfound from './notfound'
 
 Vue.use(Vuex)
 
@@ -13,5 +14,6 @@ export default new Vuex.Store({
         alert,
         loader,
         dashboard,
+        notfound,
     }
 })

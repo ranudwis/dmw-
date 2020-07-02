@@ -9,4 +9,8 @@ export default {
         created: 'Webtutor telah dibuat',
         deleted: 'Webtutor telah dihapus'
     },
+
+    http: {
+        notFound: 'Tidak dapat menemukan yang kamu cari'
+    }
 }
