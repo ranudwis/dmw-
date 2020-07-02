@@ -14,3 +14,6 @@ $router->get('course', 'CourseController@index');
 
 $router->get('semester', 'SemesterController@index');
 $router->get('semester/{slug}', 'SemesterController@show');
+
+$router->get('exam', 'ExamController@index');
+$router->post('exam', 'ExamController@create');
