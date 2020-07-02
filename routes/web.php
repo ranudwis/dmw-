@@ -11,3 +11,6 @@ $router->post('article', 'ArticleController@create');
 $router->delete('article/{articleId}', 'ArticleController@delete');
 
 $router->get('course', 'CourseController@index');
+
+$router->get('semester', 'SemesterController@index');
+$router->get('semester/{slug}', 'SemesterController@show');
