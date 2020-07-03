@@ -36,4 +36,24 @@ class CourseTest extends TestCase
             'courses' => $courses->toArray()
         ]);
     }
+
+    public function testCanShowCourse()
+    {
+        $course = DB::table('courses')->first();
+
+        $this->json('GET', 'course/' . $course->slug);
+
+        $this->assertResponseOk();
+        $this->seeJsonEquals((array) $course);
+    }
+
+    public function testCanShowCourseExams()
+    {
+        $course = DB::table('courses')->first();
+
+        $this->json('GET', 'course/' . $course->slug . '/exam');
+
+        $this->assertResponseOk();
+        $this->seeJsonStructure([ 'exams' ]);
+    }
 }

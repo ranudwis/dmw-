@@ -25,4 +25,35 @@ class CourseController extends Controller
 
         return [ 'courses' => $courses ];
     }
+
+    public function show($slug)
+    {
+        $course = DB::table('courses')
+            ->where('slug', $slug)
+            ->first();
+        $this->failIfNotExists($course);
+
+        return (array) $course;
+    }
+
+    public function indexExam($slug)
+    {
+        $exams = DB::table('exams')
+            ->select(
+                'exams.type',
+                'exams.semester',
+                'exams.start_year',
+                'exams.end_year',
+                'course_exam.information',
+                'course_exam.question'
+            )
+            ->leftJoin('course_exam', 'exams.id', '=', 'course_exam.exam_id')
+            ->leftJoin('courses', 'course_exam.course_id', '=', 'courses.id')
+            ->where('courses.slug', $slug)
+            ->get();
+
+        return [
+            'exams' => $exams
+        ];
+    }
 }
