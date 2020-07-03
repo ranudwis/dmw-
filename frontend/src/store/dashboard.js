@@ -2,7 +2,7 @@ import store from './base'
 
 function dashboard() {
     return {
-        navigationDrawer: false
+        navigationDrawer: true
     }
 }
 

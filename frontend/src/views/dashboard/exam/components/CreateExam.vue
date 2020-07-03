@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import api from '@/api'
+import alert from '@/dmw/alert'
 import moment from 'moment'
 import SmallDialog from '@/templates/dialog/SmallDialog'
 
@@ -80,7 +82,19 @@ export default {
 
     methods: {
         create() {
+            api.post('exam', {
+                type: this.type,
+                semester: this.semester,
+                schoolYear: this.schoolYear
+            }, { loader: 'exam' })
+                .then(response => {
+                    if (response.data.created) {
+                        alert.success('exam.created')
 
+                        this.$emit('created')
+                        this.dialog = false
+                    }
+                })
         }
     }
 }

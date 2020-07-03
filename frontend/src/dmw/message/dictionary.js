@@ -10,7 +10,11 @@ export default {
         deleted: 'Webtutor telah dihapus'
     },
 
+    exam: {
+        created: 'Ujian telah dibuat',
+    },
+
     http: {
         notFound: 'Tidak dapat menemukan yang kamu cari'
-    }
+    },
 }
