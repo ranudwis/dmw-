@@ -40,6 +40,7 @@ class CourseController extends Controller
     {
         $exams = DB::table('exams')
             ->select(
+                'exams.id',
                 'exams.type',
                 'exams.semester',
                 'exams.start_year',
@@ -48,7 +49,10 @@ class CourseController extends Controller
                 'course_exam.question'
             )
             ->leftJoin('course_exam', 'exams.id', '=', 'course_exam.exam_id')
-            ->leftJoin('courses', 'course_exam.course_id', '=', 'courses.id')
+            ->leftJoin('courses', function ($query) {
+                $query->on('course_exam.course_id', '=', 'courses.id')
+                    ->orWhereNull('course_exam.course_id');
+            })
             ->where('courses.slug', $slug)
             ->get();
 
