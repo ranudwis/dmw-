@@ -17,8 +17,10 @@ class CreateCourseExamTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('exam_id');
             $table->unsignedBigInteger('course_id');
-            $table->string('question')->nullable();
             $table->string('information')->nullable();
+            $table->string('drive_folder_id')->nullable();
+            $table->string('drive_question_file_id')->nullable();
+            $table->string('drive_collective_exam_file_id')->nullable();
 
             $table->foreign('exam_id')
                 ->references('id')->on('exams')

@@ -46,14 +46,4 @@ class CourseTest extends TestCase
         $this->assertResponseOk();
         $this->seeJsonEquals((array) $course);
     }
-
-    public function testCanShowCourseExams()
-    {
-        $course = DB::table('courses')->first();
-
-        $this->json('GET', 'course/' . $course->slug . '/exam');
-
-        $this->assertResponseOk();
-        $this->seeJsonStructure([ 'exams' ]);
-    }
 }

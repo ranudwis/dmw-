@@ -2,23 +2,12 @@
 
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use Tests\Traits\ExamCreation;
 
 class ExamTest extends TestCase
 {
     use DatabaseMigrations;
-
-    private $type;
-    private $semester;
-    private $schoolYear;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->type = 'mid';
-        $this->semester = 'even';
-        $this->schoolYear = [ '2019', '2020' ];
-    }
+    use ExamCreation;
 
     public function testCanCreateExam()
     {
@@ -27,19 +16,19 @@ class ExamTest extends TestCase
         $this->assertResponseOk();
         $this->seeJsonEquals([ 'created' => true ]);
         $this->seeInDatabase('exams', [
-            'type' => $this->type,
-            'semester' => $this->semester,
-            'start_year' => $this->schoolYear[0],
-            'end_year' => $this->schoolYear[1]
+            'type' => $this->examType,
+            'semester' => $this->examSemester,
+            'start_year' => $this->examSchoolYear[0],
+            'end_year' => $this->examSchoolYear[1]
         ]);
     }
 
     private function createExam()
     {
         $this->json('POST', 'exam', [
-            'type' => $this->type,
-            'semester' => $this->semester,
-            'schoolYear' => $this->schoolYear
+            'type' => $this->examType,
+            'semester' => $this->examSemester,
+            'schoolYear' => $this->examSchoolYear
         ]);
     }
 
@@ -58,10 +47,10 @@ class ExamTest extends TestCase
             'exams' => [
                 [
                     'id' => $examId,
-                    'type' => $this->type,
-                    'semester' => $this->semester,
-                    'start_year' => $this->schoolYear[0],
-                    'end_year' => $this->schoolYear[1],
+                    'type' => $this->examType,
+                    'semester' => $this->examSemester,
+                    'start_year' => $this->examSchoolYear[0],
+                    'end_year' => $this->examSchoolYear[1],
                 ]
             ]
         ]);
