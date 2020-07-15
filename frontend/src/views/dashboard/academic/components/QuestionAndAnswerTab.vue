@@ -1,5 +1,7 @@
 <template>
     <v-tab-item>
+        <create-exam @created="updateList"></create-exam>
+
         <exam-list
             :exams="exams"
             routeName="dashboard.academic.course.showexam"
@@ -10,10 +12,12 @@
 
 <script>
 import api from '@/api'
+import CreateExam from '@/templates/dashboard/exam/CreateExam'
 import ExamList from '@/templates/academic/ExamList'
 
 export default {
     components: {
+        CreateExam,
         ExamList,
     },
 
@@ -23,11 +27,17 @@ export default {
         }
     },
 
+    methods: {
+        updateList() {
+            api.get(`course/${this.$route.params.slug}/exam`, { loader: 'dashboard' })
+                .then(response => {
+                    this.exams = response.data.exams
+                })
+        }
+    },
+
     created() {
-        api.get(`course/${this.$route.params.slug}/exam`, { loader: 'dashboard' })
-            .then(response => {
-                this.exams = response.data.exams
-            })
+        this.updateList()
     }
 }
 </script>

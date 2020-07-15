@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>
+        <p v-if="information">
             Ujian diganti dengan tugas besar
         </p>
 
@@ -12,10 +12,18 @@
             okButton="simpan"
         >
             <template #activator="{ on }">
-                <v-btn v-on="on" color="primary">Edit informasi</v-btn>
+                <v-btn v-on="on" color="primary">
+                    <template v-if="information">
+                        Edit informasi
+                    </template>
+
+                    <template v-else>
+                        Beri informasi
+                    </template>
+                </v-btn>
             </template>
 
-            <v-combobox autofocus label="Informasi"></v-combobox>
+            <v-combobox v-model="information" autofocus label="Informasi"></v-combobox>
         </small-dialog>
     </div>
 </template>
@@ -24,6 +32,12 @@
 import SmallDialog from '@/templates/dialog/SmallDialog'
 
 export default {
+    props: {
+        exam: {
+            type: Object,
+        }
+    },
+
     components: {
         SmallDialog,
     },
@@ -31,6 +45,18 @@ export default {
     data() {
         return {
             dialog: false,
+            informationData: null
+        }
+    },
+
+    computed: {
+        information: {
+            get() {
+                return this.informationData || this.exam.information
+            },
+            set(newValue) {
+                this.informationData = newValue
+            }
         }
     }
 }

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import CreateExam from './components/CreateExam'
+import CreateExam from '@/templates/dashboard/exam/CreateExam'
 import ExamList from './components/ExamList'
 
 export default {

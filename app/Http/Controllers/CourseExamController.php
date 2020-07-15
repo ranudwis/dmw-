@@ -30,4 +30,22 @@ class CourseExamController extends Controller
 
         return $exam;
     }
+
+    public function update(Request $request, CourseExamRepository $courseExam, $slug, $examId)
+    {
+        $this->validate($request, [
+            'information' => 'nullable'
+        ]);
+
+        $updateData = [];
+
+        if ($request->has('information')) {
+            $updateData['information'] = $request->information;
+        }
+
+        $exam = $courseExam->getExam($slug, $examId);
+        $updated = $courseExam->update($examId, $updateData);
+
+        return [ 'updated' => (bool) $updated ];
+    }
 }

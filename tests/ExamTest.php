@@ -23,22 +23,12 @@ class ExamTest extends TestCase
         ]);
     }
 
-    private function createExam()
-    {
-        $this->json('POST', 'exam', [
-            'type' => $this->examType,
-            'semester' => $this->examSemester,
-            'schoolYear' => $this->examSchoolYear
-        ]);
-    }
-
     /**
      * @depends(testCanCreateExam)
      */
     public function testCanIndexExam()
     {
-        $this->createExam();
-        $examId = DB::table('exams')->first()->id;
+        $exam = $this->createExam();
 
         $this->json('GET', 'exam');
 
@@ -46,7 +36,7 @@ class ExamTest extends TestCase
         $this->seeJsonEquals([
             'exams' => [
                 [
-                    'id' => $examId,
+                    'id' => $exam->id,
                     'type' => $this->examType,
                     'semester' => $this->examSemester,
                     'start_year' => $this->examSchoolYear[0],

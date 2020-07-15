@@ -2,6 +2,7 @@
     <v-main>
         <v-container>
             {{ course.title }}
+
             <v-tabs v-model="tab">
                 <v-tab>Soal &amp; Pembahasan</v-tab>
                 <v-tab>Modul</v-tab>

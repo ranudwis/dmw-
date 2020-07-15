@@ -3,6 +3,7 @@
 namespace App\Dmw\Repository;
 
 use DB;
+use App\Exam;
 
 class CourseExamRepository
 {

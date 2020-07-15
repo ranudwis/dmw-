@@ -2,6 +2,8 @@
 
 namespace Tests\Traits;
 
+use DB;
+
 trait ExamCreation
 {
     protected $examType = 'mid';
@@ -15,5 +17,7 @@ trait ExamCreation
             'semester' => $this->examSemester,
             'schoolYear' => $this->examSchoolYear
         ]);
+
+        return DB::table('exams')->first();
     }
 }
