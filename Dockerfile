@@ -2,9 +2,10 @@ FROM composer:latest as backenddeps
 
 WORKDIR /deps
 
-COPY database/ database/
-COPY tests/ tests/
-COPY composer.json composer.lock ./
+RUN composer global require hirak/prestissimo
+
+COPY . .
+
 RUN composer install
 
 
@@ -18,6 +19,6 @@ RUN docker-php-ext-install pdo_mysql
 
 RUN a2enmod rewrite && a2enmod proxy && a2enmod proxy_http && a2enmod proxy_wstunnel
 
-COPY --from=backenddeps /deps/vendor/ vendor/
+COPY --from=backenddeps /deps/ .
 
 COPY . .

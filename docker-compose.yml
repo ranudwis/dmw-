@@ -11,26 +11,7 @@ services:
       - database
       - frontend
     environment:
-      APP_KEY: 'base64:gHZOaJNVvWhhJHjVrNfYeSCCRsvwGNonnHUp5TV8Wws='
-      DB_HOST: 'database'
-      DB_DATABASE: 'dmwplusplus'
-      DB_USERNAME: 'root'
-      DB_PASSWORD: 'root'
-
-  migration:
-    build: './'
-    volumes:
-      - '.:/backend'
-    depends_on:
-      - database
-      - backend
-    environment:
-      APP_KEY: 'base64:gHZOaJNVvWhhJHjVrNfYeSCCRsvwGNonnHUp5TV8Wws='
-      DB_HOST: 'database'
-      DB_DATABASE: 'dmwplusplus'
-      DB_USERNAME: 'root'
-      DB_PASSWORD: 'root'
-    command: ['./artisan', 'migrate']
+      DATABASE_URL: "mysql://root:root@database:3306/dmwplusplus"
 
   frontend:
     build: './frontend'
