@@ -132,6 +132,9 @@
     "psy/psysh": {
         "version": "v0.10.4"
     },
+    "symfony-bundles/json-request-bundle": {
+        "version": "v3.1.1"
+    },
     "symfony/browser-kit": {
         "version": "v5.1.2"
     },

@@ -4,12 +4,13 @@ namespace App\Entity;
 
 use App\Repository\LabelRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LabelRepository::class)
  */
-class Label
+class Label implements JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -20,15 +21,24 @@ class Label
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull()
+     * @Assert\NotNull(message="notnull:name")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull()
+     * @Assert\NotNull(message="notnull:slug")
      */
     private $slug;
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+        ];
+    }
 
     public function getId(): ?int
     {
