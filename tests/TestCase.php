@@ -22,4 +22,11 @@ abstract class TestCase extends WebTestCase
 
         $this->assertNotNull($data);
     }
+
+    protected function assertRepositoryDoesNotHas(ServiceEntityRepository $repository, array $find): void
+    {
+        $data = $repository->findOneBy($find);
+
+        $this->assertNull($data);
+    }
 }
