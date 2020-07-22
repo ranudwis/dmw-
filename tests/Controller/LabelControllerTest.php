@@ -23,7 +23,7 @@ class LabelControllerTest extends TestCase
         $this->client->xmlHttpRequest('GET', 'label');
 
         $this->assertResponseIsSuccessful();
-        $this->assertJsonEquals($this->client, [
+        $this->assertJsonEquals([
             'labels' => array_map(function ($label) {
                 return [
                     'id' => $label->getId(),
@@ -55,7 +55,7 @@ class LabelControllerTest extends TestCase
         $data = $this->createLabel();
 
         $this->assertResponseIsSuccessful();
-        $this->assertJsonEquals($this->client, [ 'created' => true ]);
+        $this->assertJsonEquals([ 'created' => true ]);
         $this->assertRepositoryHas($this->repository, $data);
     }
 
@@ -68,7 +68,7 @@ class LabelControllerTest extends TestCase
         $this->client->xmlHttpRequest('PATCH', 'label/' . $oldLabel->getId(), $newData);
 
         $this->assertResponseIsSuccessful();
-        $this->assertJsonEquals($this->client, [ 'updated' => true ]);
+        $this->assertJsonEquals([ 'updated' => true ]);
         $this->assertRepositoryHas($this->repository, $newData);
     }
 
@@ -80,7 +80,7 @@ class LabelControllerTest extends TestCase
         $this->client->xmlHttpRequest('DELETE', 'label/' . $oldLabel->getId());
 
         $this->assertResponseIsSuccessful();
-        $this->assertJsonEquals($this->client, [ 'deleted' => true ]);
+        $this->assertJsonEquals([ 'deleted' => true ]);
         $this->assertRepositoryDoesNotHas($this->repository, $oldData);
     }
 }

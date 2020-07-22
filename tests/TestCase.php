@@ -4,7 +4,6 @@ namespace App\Tests;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Faker\Factory;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -19,12 +18,19 @@ abstract class TestCase extends WebTestCase
         $this->client = static::createClient();
     }
 
-    protected function assertJsonEquals(KernelBrowser $client, array $data): void
+    protected function assertJsonEquals(array $data): void
     {
         $this->assertJsonStringEqualsJsonString(
             json_encode($data),
-            $client->getResponse()->getContent()
+            $this->client->getResponse()->getContent()
         );
+    }
+
+    protected function assertJsonStructure(array $keys): void
+    {
+        foreach ($keys as $key) {
+            $this->assertArrayHasKey($key, json_decode($this->client->getResponse()->getContent(), true));
+        }
     }
 
     protected function assertRepositoryHas(ServiceEntityRepository $repository, array $find): void

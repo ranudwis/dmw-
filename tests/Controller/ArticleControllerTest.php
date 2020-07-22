@@ -43,8 +43,16 @@ class ArticleControllerTest extends TestCase
         ]);
 
         $this->assertResponseIsSuccessful();
-        $this->assertJsonEquals($this->client, [ 'created' => true]);
+        $this->assertJsonEquals([ 'created' => true]);
         unset($data['labels']);
         $this->assertRepositoryHas($this->repository, $data);
+    }
+
+    public function testCanIndexArticle()
+    {
+        $this->client->xmlHttpRequest('GET', 'article');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertJsonStructure([ 'articles' ]);
     }
 }
