@@ -50,7 +50,7 @@ class Course
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isVisible;
+    private $isVisible = true;
 
     public function getId(): ?int
     {
