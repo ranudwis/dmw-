@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+      webtutor_cover:
+        uri_prefix: /upload/images/webtutor/cover
+        upload_destination: '%kernel.project_dir%/public/upload/article/cover'
+        namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

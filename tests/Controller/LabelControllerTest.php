@@ -1,31 +1,36 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Controller;
 
 use App\Tests\TestCase;
 use App\Repository\LabelRepository;
-use Faker\Factory;
 
 class LabelControllerTest extends TestCase
 {
-    private $client;
-    private $faker;
-    private $labelRepository;
+    private $repository;
 
     public function setUp()
     {
-        $this->client = static::createClient();
-        $this->labelRepository = static::$container->get(LabelRepository::class);
-        $this->faker = Factory::create();
+        parent::setUp();
+
+        $this->repository = static::$container->get(LabelRepository::class);
     }
 
     public function testCanIndexLabel()
     {
+        $labels = $this->repository->createQueryBuilder('l')->getQuery()->getResult();
+
         $this->client->xmlHttpRequest('GET', 'label');
 
         $this->assertResponseIsSuccessful();
         $this->assertJsonEquals($this->client, [
-            'labels' => []
+            'labels' => array_map(function ($label) {
+                return [
+                    'id' => $label->getId(),
+                    'name' => $label->getName(),
+                    'slug' => $label->getSlug(),
+                ];
+            }, $labels)
         ]);
     }
 
@@ -51,31 +56,31 @@ class LabelControllerTest extends TestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertJsonEquals($this->client, [ 'created' => true ]);
-        $this->assertRepositoryHas($this->labelRepository, $data);
+        $this->assertRepositoryHas($this->repository, $data);
     }
 
     public function testCanUpdateLabel()
     {
         $oldData = $this->createLabel();
-        $oldLabel = $this->labelRepository->findOneBy($oldData);
+        $oldLabel = $this->repository->findOneBy($oldData);
         $newData = $this->generateData();
 
         $this->client->xmlHttpRequest('PATCH', 'label/' . $oldLabel->getId(), $newData);
 
         $this->assertResponseIsSuccessful();
         $this->assertJsonEquals($this->client, [ 'updated' => true ]);
-        $this->assertRepositoryHas($this->labelRepository, $newData);
+        $this->assertRepositoryHas($this->repository, $newData);
     }
 
     public function testCanDeleteLabel()
     {
         $oldData = $this->createLabel();
-        $oldLabel = $this->labelRepository->findOneBy($oldData);
+        $oldLabel = $this->repository->findOneBy($oldData);
 
         $this->client->xmlHttpRequest('DELETE', 'label/' . $oldLabel->getId());
 
         $this->assertResponseIsSuccessful();
         $this->assertJsonEquals($this->client, [ 'deleted' => true ]);
-        $this->assertRepositoryDoesNotHas($this->labelRepository, $oldData);
+        $this->assertRepositoryDoesNotHas($this->repository, $oldData);
     }
 }

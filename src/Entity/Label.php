@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LabelRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,6 +32,16 @@ class Label implements JsonSerializable
      * @Assert\NotNull(message="notnull:slug")
      */
     private $slug;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Article::class, mappedBy="labels")
+     */
+    private $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     public function jsonSerialize()
     {
@@ -65,6 +77,34 @@ class Label implements JsonSerializable
     public function setSlug($slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->addLabel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            $article->removeLabel($this);
+        }
 
         return $this;
     }

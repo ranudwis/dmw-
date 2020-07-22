@@ -19,6 +19,15 @@ class LabelRepository extends ServiceEntityRepository
         parent::__construct($registry, Label::class);
     }
 
+    public function getByIds(array $ids)
+    {
+        return $this->createQueryBuilder('l')
+            ->where('l.id in (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Label[] Returns an array of Label objects
     //  */
