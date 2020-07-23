@@ -22,9 +22,10 @@ class SemesterRepository extends ServiceEntityRepository
     public function getAllWithCourses()
     {
         $query = $this->getEntityManager()->createQuery('
-            SELECT semester, course
+            SELECT semester
             FROM App\Entity\Semester semester
             JOIN App\Entity\Course course
+            ORDER BY semester.slug
         ');
 
         return $query->getResult();

@@ -1,14 +1,14 @@
 <template>
-    <div v-if="courses">
+    <div v-if="semesters">
         <div
-            v-for="(courses, semester) in semesters"
-            :key="semester"
+            v-for="semester in semestersFiltered"
+            :key="semester.id"
             class="mt-4"
         >
-            <h3 class="title">{{ semester }}</h3>
+            <h3 class="title">{{ semester.title }}</h3>
 
             <v-card
-                v-for="course in courses"
+                v-for="course in semester.courses"
                 :key="course.id"
                 :to="{ name: 'dashboard.academic.course.show', params: {slug: course.slug } }"
                 class="my-2"
@@ -30,7 +30,6 @@
 
 <script>
 import api from '@/api'
-import { groupBy } from 'lodash'
 
 export default {
     props: {
@@ -41,27 +40,32 @@ export default {
 
     data() {
         return {
-            courses: null,
+            semesters: null,
         }
     },
 
     computed: {
-        semesters() {
-            const searched = this.courses.filter(course => {
-                return ! this.search ? true : (
-                        course.title.toLowerCase().includes(this.search.toLowerCase())
-                        || course.slug.includes(this.search.toLowerCase())
-                    )
-            })
-
-            return groupBy(searched, 'semester')
+        semestersFiltered() {
+            return this.semesters
+                .map(semester => {
+                    return {
+                        ...semester,
+                        courses: semester.courses.filter(course => {
+                            return ! this.search ? true : (
+                                course.title.toLowerCase().includes(this.search.toLowerCase())
+                                || course.slug.includes(this.search.toLowerCase())
+                            )
+                        })
+                    }
+                })
+                .filter(semester => semester.courses.length > 0)
         }
     },
 
     created() {
-        api.get('course', { loader: 'dashboard' })
+        api.get('semester/withCourses', { loader: 'dashboard' })
             .then(response => {
-                this.courses = response.data.courses
+                this.semesters = response.data.semesters
             })
     }
 }
