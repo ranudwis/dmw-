@@ -6,13 +6,12 @@ use App\Repository\LabelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LabelRepository::class)
  */
-class Label implements JsonSerializable
+class Label
 {
     /**
      * @ORM\Id()
@@ -41,15 +40,6 @@ class Label implements JsonSerializable
     public function __construct()
     {
         $this->articles = new ArrayCollection();
-    }
-
-    public function jsonSerialize()
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
-        ];
     }
 
     public function getId(): ?int

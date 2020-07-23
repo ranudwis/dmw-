@@ -6,14 +6,13 @@ use App\Entity\Label;
 use App\Repository\LabelRepository;
 use App\Service\Validator;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/label")
  */
-class LabelController extends AbstractController
+class LabelController extends Controller
 {
     private $repository;
     private $entityManager;
@@ -36,8 +35,8 @@ class LabelController extends AbstractController
     {
         $labels = $this->repository->findAll();
 
-        return $this->json([
-            'labels' => $labels,
+        return $this->jsonResponse(compact('labels'), [
+            'ignores' => ['articles']
         ]);
     }
 
@@ -55,7 +54,7 @@ class LabelController extends AbstractController
         $this->entityManager->persist($label);
         $this->entityManager->flush();
 
-        return $this->json([ 'created' => true ]);
+        return $this->jsonResponse([ 'created' => true ]);
     }
 
     /**
@@ -70,7 +69,7 @@ class LabelController extends AbstractController
 
         $this->entityManager->flush();
 
-        return $this->json([ 'updated' => true ]);
+        return $this->jsonResponse([ 'updated' => true ]);
     }
 
     /**
@@ -81,6 +80,6 @@ class LabelController extends AbstractController
         $this->entityManager->remove($label);
         $this->entityManager->flush();
 
-        return $this->json([ 'deleted' => true ]);
+        return $this->jsonResponse([ 'deleted' => true ]);
     }
 }

@@ -7,7 +7,6 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
@@ -18,7 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\HasLifecycleCallbacks
  * @Vich\Uploadable
  */
-class Article implements JsonSerializable
+class Article
 {
     public const PUBLISHER_ADMIN = 1;
     public const PUBLISHER_VOLUNTEER = 2;
@@ -88,18 +87,6 @@ class Article implements JsonSerializable
     {
         $this->cover = new EmbeddedFile();
         $this->labels = new ArrayCollection();
-    }
-
-    public function jsonSerialize()
-    {
-        return [
-            'id' => $this->getId(),
-            'title' => $this->getTitle(),
-            'cover' => $this->getCover(),
-            'article' => $this->getArticle(),
-            'published' => $this->getPublished(),
-            'labels' => $this->getLabels(),
-        ];
     }
 
     public function getId(): ?int

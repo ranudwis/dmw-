@@ -19,6 +19,17 @@ class SemesterRepository extends ServiceEntityRepository
         parent::__construct($registry, Semester::class);
     }
 
+    public function getAllWithCourses()
+    {
+        $query = $this->getEntityManager()->createQuery('
+            SELECT semester, course
+            FROM App\Entity\Semester semester
+            JOIN App\Entity\Course course
+        ');
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Semester[] Returns an array of Semester objects
     //  */

@@ -34,17 +34,17 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("", methods={"GET"}, defaults={"_format": "json"})
+     * @Route("", methods={"GET"})
      */
     public function index()
     {
         $articles = $this->repository->findAll();
 
-        return $this->json([ 'articles' => $articles ]);
+        return $this->json(compact('articles'));
     }
 
     /**
-     * @Route("", methods={"POST"}, defaults={"_format": "json"})
+     * @Route("", methods={"POST"})
      */
     public function create(Request $request)
     {
