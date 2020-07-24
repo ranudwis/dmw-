@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Semester
 {
-    public const ODD = 1;
-    public const EVEN = 2;
+    public const ODD = 0;
+    public const EVEN = 1;
 
     /**
      * @ORM\Id()

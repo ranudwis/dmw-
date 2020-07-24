@@ -50,12 +50,12 @@ export default {
         return {
             dialog: false,
             types: [
-                { text: 'Tengah semester', value: 'mid' },
-                { text: 'Akhir semester', value: 'end' },
+                { text: 'Tengah semester', value: '0' },
+                { text: 'Akhir semester', value: '1' },
             ],
             semesters: [
-                { text: 'Semester Genap', value: 'even' },
-                { text: 'Semester Ganjil', value: 'odd' },
+                { text: 'Semester Ganjil', value: '0' },
+                { text: 'Semester Genap', value: '1' },
             ],
 
             type: null,
@@ -85,7 +85,8 @@ export default {
             api.post('exam', {
                 type: this.type,
                 semester: this.semester,
-                schoolYear: this.schoolYear
+                startYear: this.schoolYear[0],
+                endYear: this.schoolYear[1],
             }, { loader: 'exam' })
                 .then(response => {
                     if (response.data.created) {
