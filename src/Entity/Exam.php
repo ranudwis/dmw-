@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ExamRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -45,6 +47,16 @@ class Exam
      * @Assert\NotNull(message="notnull:endYear")
      */
     private $endYear;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CourseExam::class, mappedBy="exam", orphanRemoval=true)
+     */
+    private $courses;
+
+    public function __construct()
+    {
+        $this->courses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,6 +107,37 @@ class Exam
     public function setEndYear(string $endYear): self
     {
         $this->endYear = $endYear;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseExam[]
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(CourseExam $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+            $course->setExam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(CourseExam $course): self
+    {
+        if ($this->courses->contains($course)) {
+            $this->courses->removeElement($course);
+            // set the owning side to null (unless already changed)
+            if ($course->getExam() === $this) {
+                $course->setExam(null);
+            }
+        }
 
         return $this;
     }

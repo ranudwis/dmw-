@@ -29,7 +29,7 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         return $this->jsonResponse($course, [
-            'ignores' => ['semester']
+            'includes' => ['id', 'slug', 'code', 'title', 'credit', 'description', 'isVisible']
         ]);
     }
 }

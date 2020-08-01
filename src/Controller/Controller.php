@@ -16,6 +16,10 @@ class Controller extends AbstractController
             $context[AbstractNormalizer::IGNORED_ATTRIBUTES] = $config['ignores'];
         }
 
+        if (isset($config['includes'])) {
+            $context[AbstractNormalizer::ATTRIBUTES] = $config['includes'];
+        }
+
         return parent::json($data, 200, [], $context);
     }
 }

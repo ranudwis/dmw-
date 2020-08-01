@@ -27,7 +27,7 @@ class SemesterController extends Controller
         $semesters = $this->repository->findAll();
 
         return $this->jsonResponse(compact('semesters'), [
-            'ignores' => ['courses']
+            'includes' => ['id', 'type', 'slug', 'title']
         ]);
     }
 
