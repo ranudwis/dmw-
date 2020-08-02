@@ -67,12 +67,13 @@ export default {
     computed: {
         examsData() {
             return this.exams.map(exam => {
-                const type = exam.type === 'mid' ? 'Ujian Tengah Semester' : 'Ujian Akhir Semester'
-                const schoolYear = `${exam.start_year}/${exam.end_year}`
+                const type = exam.type === 0 ? 'Ujian Tengah Semester' : 'Ujian Akhir Semester'
+                const semester = exam.semester === 0 ? 'Ganjil' : 'Genap'
+                const schoolYear = `${exam.startYear}/${exam.endYear}`
 
                 return {
                     id: exam.id,
-                    title: `${type} ${schoolYear}`,
+                    title: `${type} ${semester} ${schoolYear}`,
                     information: exam.information,
                     question: exam.question,
                 }

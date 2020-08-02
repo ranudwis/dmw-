@@ -29,7 +29,7 @@ export default {
 
     methods: {
         updateList() {
-            api.get(`course/${this.$route.params.slug}/exam`, { loader: 'dashboard' })
+            api.get(`courseexam/${this.$route.params.slug}`, { loader: 'dashboard' })
                 .then(response => {
                     this.exams = response.data.exams
                 })

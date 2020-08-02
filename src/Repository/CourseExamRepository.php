@@ -19,6 +19,21 @@ class CourseExamRepository extends ServiceEntityRepository
         parent::__construct($registry, CourseExam::class);
     }
 
+    public function getAllExamWithCourseSlug($slug)
+    {
+        $query = $this->getEntityManager()->createQuery('
+            SELECT exam
+            FROM App\Entity\Exam exam
+            LEFT JOIN exam.courses courses
+            LEFT JOIN courses.course course
+            WHERE course.slug = :slug OR course.slug IS NULL
+        ');
+
+        $query->setParameter('slug', $slug);
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return CourseExam[] Returns an array of CourseExam objects
     //  */
