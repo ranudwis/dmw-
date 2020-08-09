@@ -40,9 +40,9 @@ export default {
                 this.course = response.data
             })
 
-        api.get(`course/${this.$route.params.slug}/exam/${this.$route.params.examId}`, { loader: 'dashboard' })
+        api.get(`courseexam/${this.$route.params.slug}/${this.$route.params.examId}`, { loader: 'dashboard' })
             .then(response => {
-                this.exam = response.data
+                this.exam = response.data ? response.data : {}
             })
     }
 }

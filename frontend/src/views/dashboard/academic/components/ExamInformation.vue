@@ -1,15 +1,17 @@
 <template>
     <div>
         <p v-if="information">
-            Ujian diganti dengan tugas besar
+            {{ information }}
         </p>
 
         <small-dialog
             v-model="dialog"
+            @ok="save"
             title="Informasi Ujian"
             subtitle="Berikan informasi tentang ujian seperti tidak tersedia soal, tidak ada ujian, dll"
             color="primary"
             okButton="simpan"
+            loader="information"
         >
             <template #activator="{ on }">
                 <v-btn v-on="on" color="primary">
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+import api from '@/api'
 import SmallDialog from '@/templates/dialog/SmallDialog'
 
 export default {
@@ -57,6 +60,19 @@ export default {
             set(newValue) {
                 this.informationData = newValue
             }
+        }
+    },
+
+    methods: {
+        save() {
+            api.put(`courseexm/${this.$route.params.slug}/${this.$route.params.examId}/information`, {
+                information: this.infomration
+            }, { loader: 'information' })
+                .then(response => {
+                    if (response.data.updated) {
+                        this.dialog = false
+                    }
+                })
         }
     }
 }

@@ -1,0 +1,7 @@
+services:
+    Google_Client:
+        class: Google_Client
+        calls:
+            - [setClientId, ['%env(GOOGLE_CLIENT_ID)%']]
+            - [setClientSecret, ['%env(GOOGLE_CLIENT_SECRET)%']]
+            - [refreshToken, ['%env(DMW_DRIVE_REFRESH_TOKEN)%']]

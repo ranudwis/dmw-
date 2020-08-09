@@ -59,6 +59,26 @@ class Course
      */
     private $exams;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $folderPath;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $midExamFolderPath;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $endExamFolderPath;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $midAndEndExamPath;
+
     public function __construct()
     {
         $this->exams = new ArrayCollection();
@@ -180,6 +200,54 @@ class Course
                 $exam->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFolderPath(): ?string
+    {
+        return $this->folderPath;
+    }
+
+    public function setFolderPath(?string $folderPath): self
+    {
+        $this->folderPath = $folderPath;
+
+        return $this;
+    }
+
+    public function getMidExamFolderPath(): ?string
+    {
+        return $this->midExamFolderPath;
+    }
+
+    public function setMidExamFolderPath(?string $midExamFolderPath): self
+    {
+        $this->midExamFolderPath = $midExamFolderPath;
+
+        return $this;
+    }
+
+    public function getEndExamFolderPath(): ?string
+    {
+        return $this->endExamFolderPath;
+    }
+
+    public function setEndExamFolderPath(?string $endExamFolderPath): self
+    {
+        $this->endExamFolderPath = $endExamFolderPath;
+
+        return $this;
+    }
+
+    public function getMidAndEndExamPath(): ?string
+    {
+        return $this->midAndEndExamPath;
+    }
+
+    public function setMidAndEndExamPath(?string $midAndEndExamPath): self
+    {
+        $this->midAndEndExamPath = $midAndEndExamPath;
 
         return $this;
     }
