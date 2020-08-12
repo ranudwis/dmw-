@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p v-if="information">
-            {{ information }}
+        <p v-if="value.information">
+            {{ value.information }}
         </p>
 
         <small-dialog
@@ -11,11 +11,11 @@
             subtitle="Berikan informasi tentang ujian seperti tidak tersedia soal, tidak ada ujian, dll"
             color="primary"
             okButton="simpan"
-            loader="information"
+            loading="information"
         >
             <template #activator="{ on }">
                 <v-btn v-on="on" color="primary">
-                    <template v-if="information">
+                    <template v-if="value.information">
                         Edit informasi
                     </template>
 
@@ -25,7 +25,12 @@
                 </v-btn>
             </template>
 
-            <v-combobox v-model="information" autofocus label="Informasi"></v-combobox>
+            <v-text-field
+                @keydown.enter="save"
+                v-model="informationData"
+                autofocus
+                label="Informasi"
+            ></v-text-field>
         </small-dialog>
     </div>
 </template>
@@ -36,7 +41,7 @@ import SmallDialog from '@/templates/dialog/SmallDialog'
 
 export default {
     props: {
-        exam: {
+        value: {
             type: Object,
         }
     },
@@ -52,13 +57,10 @@ export default {
         }
     },
 
-    computed: {
-        information: {
-            get() {
-                return this.informationData || this.exam.information
-            },
-            set(newValue) {
-                this.informationData = newValue
+    watch: {
+        dialog(dialog) {
+            if (dialog) {
+                this.informationData = this.value.information
             }
         }
     },
@@ -66,14 +68,19 @@ export default {
     methods: {
         save() {
             api.put(`courseexam/${this.$route.params.slug}/${this.$route.params.examId}/information`, {
-                information: this.infomration
+                information: this.informationData
             }, { loader: 'information' })
                 .then(response => {
                     if (response.data.updated) {
+                        this.$emit('input', {
+                            ...this.value,
+                            information: this.informationData
+                        })
+
                         this.dialog = false
                     }
                 })
         }
-    }
+    },
 }
 </script>

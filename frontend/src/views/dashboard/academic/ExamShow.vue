@@ -4,7 +4,7 @@
             <h1 class="title">Ujian tengah semester Agama 2019/2020</h1>
 
             <template v-if="exam">
-                <exam-information class="mt-4" :exam="exam"></exam-information>
+                <exam-information v-model="exam" class="mt-4"></exam-information>
 
                 <exam-question class="mt-8" :exam="exam"></exam-question>
 
