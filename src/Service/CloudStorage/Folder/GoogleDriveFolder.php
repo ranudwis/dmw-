@@ -3,7 +3,7 @@
 namespace App\Service\CloudStorage\Folder;
 
 use App\Service\CloudStorage\Storage\GoogleDriveStorage;
-use Google_Serivce_Drive_DriveFile;
+use Google_Service_Drive_DriveFile;
 
 class GoogleDriveFolder implements FolderInterface
 {
@@ -27,7 +27,7 @@ class GoogleDriveFolder implements FolderInterface
         return $this->path;
     }
 
-    public function create(string $name, ?FolderInterface $parent)
+    public function create(string $name, ?FolderInterface $parent = null)
     {
         $parentPath = $parent ? $parent->getPath() : $this->rootPath;
 

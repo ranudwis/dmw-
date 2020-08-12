@@ -65,7 +65,7 @@ export default {
 
     methods: {
         save() {
-            api.put(`courseexm/${this.$route.params.slug}/${this.$route.params.examId}/information`, {
+            api.put(`courseexam/${this.$route.params.slug}/${this.$route.params.examId}/information`, {
                 information: this.infomration
             }, { loader: 'information' })
                 .then(response => {
