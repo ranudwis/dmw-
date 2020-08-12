@@ -4,6 +4,7 @@ namespace App\Service\CloudStorage\Folder;
 
 use App\Service\CloudStorage\Storage\GoogleDriveStorage;
 use Google_Service_Drive_DriveFile;
+use Google_Service_Exception;
 
 class GoogleDriveFolder implements FolderInterface
 {
@@ -22,7 +23,7 @@ class GoogleDriveFolder implements FolderInterface
         $this->path = $path;
     }
 
-    public function getPath(): string
+    public function getPath(): ?string
     {
         return $this->path;
     }
@@ -44,6 +45,20 @@ class GoogleDriveFolder implements FolderInterface
 
     public function isExists(): bool
     {
-        return ! is_null($this->path);
+        if (is_null($this->getPath())) {
+            return false;
+        }
+
+        try {
+            $file = $this->service->files->get($this->getPath(), ['fields' => 'id,trashed']);
+        } catch (Google_Service_Exception $e) {
+            return false;
+        }
+
+        if ($file->id && ! $file->trashed) {
+            return true;
+        }
+
+        return false;
     }
 }

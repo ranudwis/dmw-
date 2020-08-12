@@ -10,21 +10,24 @@ use App\Service\CloudStorage\Folder\FolderInterface;
 
 class CourseExamFactory
 {
-    private const MID_STRING = 'UTS';
-    private const END_STRING = 'UAS';
+    private const MID_STRING = 'Ujian Tengah Semester';
+    private const END_STRING = 'Ujian Akhir Semester';
 
     private $folder;
     private $courseFolder;
     private $courseExamFolder;
+    private $examFolder;
 
     public function __construct(
         FolderInterface $folder,
         FolderInterface $courseFolder,
-        FolderInterface $courseExamFolder
+        FolderInterface $courseExamFolder,
+        FolderInterface $examFolder
     ) {
         $this->folder = $folder;
         $this->courseFolder = $courseFolder;
         $this->courseExamFolder = $courseExamFolder;
+        $this->examFolder = $examFolder;
     }
 
     public function create(Course $course, Exam $exam): CourseExam
@@ -34,21 +37,25 @@ class CourseExamFactory
         $courseExam = new CourseExam();
         $courseExam->setCourse($course);
         $courseExam->setExam($exam);
-        $this->folder->create($this->generateFolderName($exam), $this->courseFolder);
+        $this->folder->create($this->generateFolderName($course, $exam), $this->courseExamFolder);
         $courseExam->setFolderPath($this->folder->getPath());
 
         return $courseExam;
     }
 
-    private function generateFolderName(Exam $exam)
+    private function generateFolderName(Course $course, Exam $exam)
     {
-        $semester = $exam->getSemester() === Semester::EVEN ? 'Genap' : 'Ganjil';
+        $type = $exam->getType() === Exam::MID ? 'Tengah' : 'Akhir';
+        $title = $course->getTitle();
         $startYear = $exam->getStartyear();
         $endYear = $exam->getEndYear();
 
-        return sprintf('Ujian %s Semester %s/%s', $semester, $startYear, $endYear);
+        return sprintf('Ujian %s Semester %s %s/%s', $type, $title, $startYear, $endYear);
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ElseExpression)
+     */
     private function checkOrCreateCourseExamFolder(Course $course, Exam $exam)
     {
         $this->checkOrCreateCourseFolder($course);
@@ -65,6 +72,12 @@ class CourseExamFactory
             $title = $exam->getType() === Exam::MID ? self::MID_STRING : self::END_STRING;
 
             $this->courseExamFolder->create($title, $this->courseFolder);
+
+            if ($exam->getType() === Exam::MID) {
+                $course->setMidExamFolderPath($this->courseExamFolder->getPath());
+            } else {
+                $course->setEndExamFolderPath($this->courseExamFolder->getPath());
+            }
         }
     }
 
@@ -78,6 +91,8 @@ class CourseExamFactory
 
         if (! $this->courseFolder->isExists()) {
             $this->courseFolder->create($course->getTitle());
+
+            $course->setFolderPath($this->courseFolder->getPath());
         }
     }
 }

@@ -6,7 +6,7 @@ interface FolderInterface
 {
     public function setPath(string $path);
 
-    public function getPath(): string;
+    public function getPath(): ?string;
 
     public function create(string $name, ?FolderInterface $parent);
 

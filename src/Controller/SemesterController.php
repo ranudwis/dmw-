@@ -39,7 +39,18 @@ class SemesterController extends Controller
         $semesters = $this->repository->getAllWithCourses();
 
         return $this->jsonResponse(compact('semesters'), [
-            'ignores' => ['semester']
+            'includes' => [
+                'id',
+                'type',
+                'slug',
+                'title',
+                'courses' => [
+                    'id',
+                    'slug',
+                    'code',
+                    'title'
+                ]
+            ]
         ]);
     }
 
