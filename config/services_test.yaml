@@ -1,12 +1,4 @@
 services:
-  test.App\Service\CloudStorage\Storage\StorageInterface:
-    alias: App\Service\CloudStorage\Storage\StorageInterface
-    public: true
-
-  test.App\Service\CloudStorage\Folder\FolderInterface:
-    alias: App\Service\CloudStorage\Folder\FolderInterface
-    public: true
-
-  test.App\Service\CloudStorage\File\FileInterface:
-    alias: App\Service\CloudStorage\File\FileInterface
-    public: true
+  test.App\Factory\CourseExamFactory:
+    alias: App\Factory\CourseExamFactory
+    public: truk

@@ -32,7 +32,9 @@ class ExamController extends Controller
     {
         $exams = $this->repository->findAll();
 
-        return $this->jsonResponse(compact('exams'));
+        return $this->jsonResponse(compact('exams'), [
+            'includes' => [ 'id', 'type', 'semester', 'startYear', 'endYear' ]
+        ]);
     }
 
     /**

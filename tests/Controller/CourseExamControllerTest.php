@@ -2,11 +2,11 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\CourseExam;
+use App\Factory\CourseExamFactory;
 use App\Repository\CourseExamRepository;
 use App\Repository\CourseRepository;
 use App\Repository\ExamRepository;
-use App\Service\CloudStorage\Folder\FolderInterface;
-use App\Service\CloudStorage\Storage\StorageInterface;
 use App\Tests\TestCase;
 
 class CourseExamControllerTest extends TestCase
@@ -45,7 +45,7 @@ class CourseExamControllerTest extends TestCase
 
     public function testCanUpdateInformation()
     {
-        $this->createCloudStorageMock();
+        $this->createFactoryMock();
 
         $url = sprintf('courseexam/%s/%s/information', $this->course->getSlug(), $this->exam->getId());
         $informationData = [
@@ -61,14 +61,17 @@ class CourseExamControllerTest extends TestCase
         $this->assertRepositoryHas($this->repository, $informationData);
     }
 
-    private function createCloudStorageMock()
+    private function createFactoryMock()
     {
-        $storage = $this->createMock(StorageInterface::class);
-        $folder = $this->createMock(FolderInterface::class);
+        $courseExam = new CourseExam();
+        $courseExam->setFolderPath('');
+        $courseExam->setExam($this->exam);
+        $courseExam->setCourse($this->course);
 
-        $folder->method('isExists')->willReturn(true);
+        $factory = $this->createMock(CourseExamFactory::class);
 
-        static::$container->set('test.' . StorageInterface::class, $storage);
-        static::$container->set('test.' . FolderInterface::class, $folder);
+        $factory->method('create')->willReturn($courseExam);
+
+        static::$container->set('test.' . CourseExamFactory::class, $factory);
     }
 }
