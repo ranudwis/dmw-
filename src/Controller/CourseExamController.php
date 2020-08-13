@@ -58,7 +58,18 @@ class CourseExamController extends Controller
         ]);
 
         return $this->jsonResponse($courseExam, [
-            'includes' => ['id', 'information', 'folderPath', 'questionPath', 'questionAndAnswerPath']
+            'includes' => [
+                'id',
+                'information',
+                'folderPath',
+                'questionPath',
+                'questionAndAnswerPath',
+                'exam' => [
+                    'typeString',
+                    'startYear',
+                    'endYear'
+                ]
+            ]
         ]);
     }
 

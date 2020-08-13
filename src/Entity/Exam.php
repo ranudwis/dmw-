@@ -63,6 +63,11 @@ class Exam
         return $this->id;
     }
 
+    public function getTypeString(): ?string
+    {
+        return $this->type === self::MID ? 'mid' : 'end';
+    }
+
     public function getType(): ?int
     {
         return $this->type;

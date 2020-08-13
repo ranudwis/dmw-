@@ -1,7 +1,7 @@
 <template>
     <v-main>
         <v-container>
-            <h1 class="title">Ujian tengah semester Agama 2019/2020</h1>
+            <h1 class="title">{{ title }}</h1>
 
             <template v-if="exam">
                 <exam-information v-model="exam" class="mt-4"></exam-information>
@@ -31,6 +31,18 @@ export default {
         return {
             course: null,
             exam: null,
+        }
+    },
+
+    computed: {
+        title() {
+            if (this.course && this.exam) {
+                const type = this.exam.exam.typeString === 'mid' ? 'Tengah' : 'Akhir'
+
+                return `Ujian ${type} Semester ${this.course.title} ${this.exam.exam.startYear}/${this.exam.exam.endYear}`
+            }
+
+            return null
         }
     },
 
