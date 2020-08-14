@@ -6,9 +6,15 @@
             <template v-if="exam">
                 <exam-information v-model="exam" class="mt-4"></exam-information>
 
-                <exam-question class="mt-8" :exam="exam"></exam-question>
+                <v-row>
+                    <v-col>
+                        <exam-question class="mt-8" :exam="exam"></exam-question>
+                    </v-col>
 
-                <exam-answers class="mt-8" :exam="exam"></exam-answers>
+                    <v-col>
+                        <exam-answers class="mt-8" :exam="exam"></exam-answers>
+                    </v-col>
+                </v-row>
             </template>
         </v-container>
     </v-main>
