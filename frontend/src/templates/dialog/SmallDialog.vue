@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="value" @input="$emit('input', $event)" max-width="400px">
+    <v-dialog :value="value" @input="$emit('input', $event)" max-width="400px" :persistent="persistent">
         <template #activator="{ on }">
             <slot :on="on" name="activator">
                 No Activator
@@ -68,6 +68,10 @@ export default {
         loading: {
             type: String,
             default: 'noLoader',
+        },
+
+        persistent: {
+            type: Boolean
         }
     },
 
