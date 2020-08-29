@@ -45,6 +45,14 @@ class CourseExamControllerTest extends TestCase
         $this->client->xmlHttpRequest('GET', 'courseexam/' . $this->course->getSlug() . '/' . $this->exam->getId());
 
         $this->assertResponseIsSuccessful();
+        $this->assertJsonStructure([
+            'id',
+            'information',
+            'folderPath',
+            'questionPath',
+            'questionAndAnswerPath',
+            'exam'
+        ]);
     }
 
     public function testCanUpdateInformation()

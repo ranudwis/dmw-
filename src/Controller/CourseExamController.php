@@ -24,15 +24,18 @@ class CourseExamController extends Controller
     private $repository;
     private $entityManager;
     private $validator;
+    private $factory;
 
     public function __construct(
         CourseExamRepository $repository,
         EntityManagerInterface $entityManager,
-        Validator $validator
+        Validator $validator,
+        CourseExamFactory $factory
     ) {
         $this->repository = $repository;
         $this->entityManager = $entityManager;
         $this->validator = $validator;
+        $this->factory = $factory;
     }
 
     /**
@@ -55,10 +58,7 @@ class CourseExamController extends Controller
      */
     public function show(Course $course, Exam $exam)
     {
-        $courseExam = $this->repository->findOneBy([
-            'course' => $course,
-            'exam' => $exam
-        ]);
+        $courseExam = $this->getOrCreateCourseExam($course, $exam);
 
         return $this->jsonResponse($courseExam, [
             'includes' => [
@@ -124,18 +124,15 @@ class CourseExamController extends Controller
         ]);
     }
 
-    private function getOrCreateCourseExam(
-        Course $course,
-        Exam $exam,
-        CourseExamFactory $factory
-    ): CourseExam {
+    private function getOrCreateCourseExam(Course $course, Exam $exam): CourseExam
+    {
         $courseExam = $this->repository->findOneBy([
             'course' => $course,
             'exam' => $exam
         ]);
 
         if (is_nulL($courseExam)) {
-            $courseExam = $factory->create($course, $exam);
+            $courseExam = $this->factory->create($course, $exam);
 
             $this->entityManager->persist($courseExam);
         }
