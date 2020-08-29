@@ -2,13 +2,15 @@
 
 namespace App\Tests;
 
+use App\Tests\Traits\FileTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Faker\Factory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class TestCase extends WebTestCase
 {
+    use FileTrait;
+
     protected $faker;
     protected $client;
 
@@ -45,17 +47,5 @@ abstract class TestCase extends WebTestCase
         $data = $repository->findOneBy($find);
 
         $this->assertNull($data);
-    }
-
-    protected function createUploadedImage()
-    {
-        $temporaryFileName = tempnam(sys_get_temp_dir(), 'dmwplusplus');
-        copy(__DIR__ . '/fixtures/image.png', $temporaryFileName);
-
-        return new UploadedFile(
-            $temporaryFileName,
-            'image.png',
-            'image/png'
-        );
     }
 }

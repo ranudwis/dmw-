@@ -20,11 +20,6 @@ class GoogleDriveFile implements FileInterface
         $this->path = $path;
     }
 
-    public function createFromLocalFile(string $localPath, ?FolderInterface $parent)
-    {
-        return $localPath . $parent;
-    }
-
     public function isExists(): bool
     {
         return true;

@@ -61,7 +61,9 @@ class SemesterController extends Controller
     public function show(Semester $semester)
     {
         return $this->jsonResponse($semester, [
-            'ignores' => ['semester']
+            'includes' => ['id', 'type', 'slug', 'title', 'courses' => [
+                'title'
+            ]]
         ]);
     }
 }

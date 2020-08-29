@@ -6,12 +6,15 @@ use App\Entity\Course;
 use App\Entity\CourseExam;
 use App\Entity\Exam;
 use App\Factory\CourseExamFactory;
+use App\Factory\GoogleDriveFileFactory;
 use App\Repository\CourseExamRepository;
 use App\Service\Validator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @Route("/courseexam")
@@ -80,9 +83,52 @@ class CourseExamController extends Controller
     public function updateInformation(
         Request $request,
         Course $course,
+        Exam $exam
+    ) {
+        $courseExam = $this->getOrCreateCourseExam($course, $exam);
+
+        $courseExam->setInformation($request->get('information'));
+
+        $this->validator->validate($courseExam);
+
+        $this->entityManager->flush();
+
+        return $this->json(['updated' => true]);
+    }
+
+    /**
+     * @Route("/{slug}/{exam}/question", methods={"PUT"})
+     * @ParamConverter("course", options={"mapping": {"slug": "slug"}})
+     */
+    public function updateQuestion(
+        Request $request,
+        Course $course,
+        Exam $exam,
+        GoogleDriveFileFactory $factory
+    ) {
+        $contentLength = $request->get('contentLength');
+
+        $this->validateUpdateQuestionRequest($contentLength);
+
+        $courseExam = $this->getOrCreateCourseExam($course, $exam);
+
+        $parentFolderPath = $courseExam->getFolderPath();
+
+        $name = $this->generateQuestionFileName($courseExam);
+        $upload = $factory->create($name, $contentLength, 'application/pdf', $parentFolderPath);
+
+        $courseExam->setQuestionPath($upload['file']->getPath());
+
+        return $this->json([
+            'uploadUrl' => $upload['url']
+        ]);
+    }
+
+    private function getOrCreateCourseExam(
+        Course $course,
         Exam $exam,
         CourseExamFactory $factory
-    ) {
+    ): CourseExam {
         $courseExam = $this->repository->findOneBy([
             'course' => $course,
             'exam' => $exam
@@ -94,12 +140,34 @@ class CourseExamController extends Controller
             $this->entityManager->persist($courseExam);
         }
 
-        $courseExam->setInformation($request->get('information'));
+        return $courseExam;
+    }
 
-        $this->validator->validate($courseExam);
+    private function validateUpdateQuestionRequest(string $contentLength): void
+    {
+        $notNull = new Assert\NotNull();
+        $notNull->message = 'notnull:contentLength';
+        $positive = new Assert\Positive();
+        $positive->message = 'positive:contentLength';
 
-        $this->entityManager->flush();
+        $assertion = [
+            $notNull,
+            $positive
+        ];
 
-        return $this->json(['updated' => true]);
+        $this->validator->validateWithConstraint($contentLength, $assertion);
+    }
+
+    private function generateQuestionFileName(CourseExam $courseExam): string
+    {
+        $exam = $courseExam->getExam();
+        $examType = $exam->getType() === Exam::MID ? 'UTS' : 'UAS';
+        $startYear = $exam->getStartYear();
+        $endYear = $exam->getEndYear();
+        $course = $courseExam->getCourse()->getTitle();
+
+        $name = sprintf('Soal %s %s %s-%s', $examType, $startYear, $endYear, $course);
+
+        return $name;
     }
 }

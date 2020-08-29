@@ -1,4 +1,8 @@
 services:
   test.App\Factory\CourseExamFactory:
     alias: App\Factory\CourseExamFactory
-    public: truk
+    public: true
+
+  test.App\Factory\GoogleDriveFileFactory:
+    alias: App\Factory\GoogleDriveFileFactory
+    public: true

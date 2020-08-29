@@ -24,4 +24,15 @@ class Validator
 
         return true;
     }
+
+    public function validateWithConstraint($value, $constraint)
+    {
+        $errors = $this->validator->validate($value, $constraint);
+
+        if ($errors->count() !== 0) {
+            throw new ValidationException($errors);
+        }
+
+        return true;
+    }
 }
