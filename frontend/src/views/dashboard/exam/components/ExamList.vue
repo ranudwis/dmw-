@@ -30,7 +30,7 @@ export default {
         title() {
             return function (idx) {
                 const type = this.exams[idx].type === 'mid' ? 'Ujian Tengah Semester' : 'Ujian Akhir Semester'
-                const semester = this.exams[idx].semester === 'even' ? 'Genap' : 'Ganjil'
+                const semester = this.exams[idx].semester === 1 ? 'Genap' : 'Ganjil'
                 const schoolYear = `${this.exams[idx].startYear}/${this.exams[idx].endYear}`
 
                 return `${type} ${semester} ${schoolYear}`

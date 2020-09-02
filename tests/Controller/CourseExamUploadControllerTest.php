@@ -35,7 +35,7 @@ class CourseExamUploadControllerTest extends TestCase
         $url = sprintf('courseexam/upload/%s/%s/question', $this->course->getSlug(), $this->exam->getId());
         $pdf = $this->createUploadedPdf();
 
-        $this->client->xmlHttpRequest('PUT', $url, [], [
+        $this->client->xmlHttpRequest('POST', $url, [], [
             'file' => $pdf
         ]);
 

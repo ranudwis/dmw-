@@ -28,7 +28,15 @@ class CourseExamRepository extends ServiceEntityRepository
             FROM App\Entity\Exam exam
             LEFT JOIN exam.courses courses
             LEFT JOIN courses.course course
-            WHERE course.slug = :slug OR course.slug IS NULL
+
+            WHERE exam.semester = (
+                    SELECT semester.type
+                    FROM App\Entity\Semester semester
+                    JOIN semester.courses innerCourse
+
+                    WHERE innerCourse.slug = :slug
+                )
+                AND (course.slug = :slug OR course.slug IS NULL)
         ');
 
         $query->setParameter('slug', $slug);

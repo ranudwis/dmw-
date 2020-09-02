@@ -5,6 +5,7 @@
         :title="dialogTitle"
         okButton="upload"
         persistent
+        loading="question"
     >
         <template #activator="{ on }">
             <v-btn v-on="on" fab small color="primary">
@@ -65,9 +66,7 @@ export default {
             const formData = new FormData()
             formData.append('file', file)
 
-            const response = await api.post(requestUrl, formData)
-
-            console.log(response)
+            await api.post(requestUrl, formData, { loader: 'question' })
         }
     }
 }
