@@ -24,7 +24,10 @@ export default class QuestionMaker {
             })
         })
 
-        return finishedDocument
+        const array = await finishedDocument.save()
+        const blob = new Blob([array], { type: 'application/pdf' })
+
+        return blob
     }
 
     withBorder(flag) {

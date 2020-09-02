@@ -6,7 +6,9 @@ use App\Entity\Course;
 use App\Entity\CourseExam;
 use App\Entity\Exam;
 use App\Entity\Semester;
+use App\Repository\CourseExamRepository;
 use App\Service\CloudStorage\Folder\FolderInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 class CourseExamFactory
 {
@@ -17,20 +19,40 @@ class CourseExamFactory
     private $courseFolder;
     private $courseExamFolder;
     private $examFolder;
+    private $repository;
+    private $entityManager;
 
     public function __construct(
         FolderInterface $folder,
         FolderInterface $courseFolder,
         FolderInterface $courseExamFolder,
-        FolderInterface $examFolder
+        FolderInterface $examFolder,
+        CourseExamRepository $repository,
+        EntityManagerInterface $entityManager
     ) {
         $this->folder = $folder;
         $this->courseFolder = $courseFolder;
         $this->courseExamFolder = $courseExamFolder;
         $this->examFolder = $examFolder;
+        $this->repository = $repository;
+        $this->entityManager = $entityManager;
     }
 
-    public function create(Course $course, Exam $exam): CourseExam
+    public function getOrCreate(Course $course, Exam $exam): CourseExam
+    {
+        $courseExam = $this->repository->findOneBy(compact('course', 'exam'));
+
+        if (is_null($courseExam)) {
+            $courseExam = $this->create($course, $exam);
+
+            $this->entityManager->persist($courseExam);
+            $this->entityManager->flush();
+        }
+
+        return $courseExam;
+    }
+
+    private function create(Course $course, Exam $exam): CourseExam
     {
         $this->checkOrCreateCourseExamFolder($course, $exam);
 

@@ -3,6 +3,7 @@
 namespace App\Service\CloudStorage\File;
 
 use App\Service\CloudStorage\Folder\FolderInterface;
+use Symfony\Component\HttpFoundation\File\File;
 
 interface FileInterface
 {

@@ -2,17 +2,17 @@
 
 namespace App\Tests\Controller;
 
+use App\Tests\Controller\Traits\CourseExamTrait;
 use App\Entity\CourseExam;
-use App\Factory\CourseExamFactory;
-use App\Factory\GoogleDriveFileFactory;
 use App\Repository\CourseExamRepository;
 use App\Repository\CourseRepository;
 use App\Repository\ExamRepository;
-use App\Service\CloudStorage\File\GoogleDriveFile;
 use App\Tests\TestCase;
 
 class CourseExamControllerTest extends TestCase
 {
+    use CourseExamTrait;
+
     private $repository;
     private $courseRepository;
     private $examRepository;
@@ -40,7 +40,7 @@ class CourseExamControllerTest extends TestCase
         $this->assertJsonStructure(['exams']);
     }
 
-    public function testCanShowCourseExamWithSlugAndExmanId()
+    public function testCanShowCourseExamWithSlugAndExamId()
     {
         $this->client->xmlHttpRequest('GET', 'courseexam/' . $this->course->getSlug() . '/' . $this->exam->getId());
 
@@ -69,44 +69,5 @@ class CourseExamControllerTest extends TestCase
             'updated' => true
         ]);
         $this->assertRepositoryHas($this->repository, $informationData);
-    }
-
-    public function testCanUpdateQuestion()
-    {
-        $url = sprintf('courseexam/%s/%s/question', $this->course->getSlug(), $this->exam->getId());
-        $pdf = $this->createUploadedPdf();
-
-        $this->client->xmlHttpRequest('PUT', $url, [
-            'contentLength' => $pdf->getSize()
-        ]);
-
-        $this->assertResponseIsSuccessful();
-        $this->assertJsonEquals([
-            'uploadUrl' => 'upload'
-        ]);
-    }
-
-    private function createFactoryMock()
-    {
-        $courseExam = new CourseExam();
-        $courseExam->setFolderPath('');
-        $courseExam->setExam($this->exam);
-        $courseExam->setCourse($this->course);
-
-        $factory = $this->createMock(CourseExamFactory::class);
-
-        $factory->method('create')->willReturn($courseExam);
-
-        static::$container->set('test.' . CourseExamFactory::class, $factory);
-
-        $fileFactory = $this->createMock(GoogleDriveFileFactory::Class);
-        $file = $this->createMock(GoogleDriveFile::class);
-
-        $fileFactory->method('create')->willReturn([
-            'url' => 'upload',
-            'file' => $file
-        ]);
-
-        static::$container->set('test.' . GoogleDriveFileFactory::class, $fileFactory);
     }
 }

@@ -39,7 +39,7 @@ abstract class TestCase extends WebTestCase
     {
         $data = $repository->findOneBy($find);
 
-        $this->assertNotNull($data);
+        $this->assertNotNull($data, 'Repository does not has the data');
     }
 
     protected function assertRepositoryDoesNotHas(ServiceEntityRepository $repository, array $find): void

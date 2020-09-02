@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import api from '@/api'
 import QuestionMaker from '@/dmw/pdf/QuestionMaker'
 import SmallDialog from '@/templates/dialog/SmallDialog'
 
@@ -57,7 +58,16 @@ export default {
         async save() {
             const questionMaker = new QuestionMaker()
 
-            const document = await questionMaker.withBorder(this.withBorder).make(this.file)
+            const file = await questionMaker.withBorder(this.withBorder).make(this.file)
+
+            const requestUrl = `courseexam/upload/${this.$route.params.slug}/${this.$route.params.examId}/question`
+
+            const formData = new FormData()
+            formData.append('file', file)
+
+            const response = await api.post(requestUrl, formData)
+
+            console.log(response)
         }
     }
 }
