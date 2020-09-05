@@ -8,7 +8,7 @@
 
                 <v-row>
                     <v-col>
-                        <exam-question class="mt-8" :exam="exam"></exam-question>
+                        <exam-question class="mt-8" :course="course" :exam="exam"></exam-question>
                     </v-col>
 
                     <v-col>

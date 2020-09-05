@@ -32,6 +32,10 @@ import SmallDialog from '@/templates/dialog/SmallDialog'
 
 export default {
     props: {
+        course: {
+            type: Object,
+        },
+
         exam: {
             type: Object,
         }
@@ -44,7 +48,7 @@ export default {
     data() {
         return {
             dialog: false,
-            withBorder: false,
+            withBorder: true,
             file: null,
         }
     },
@@ -59,7 +63,10 @@ export default {
         async save() {
             const questionMaker = new QuestionMaker()
 
-            const file = await questionMaker.withBorder(this.withBorder).make(this.file)
+            const file = await questionMaker
+                .withBorder(this.withBorder)
+                .withInfo(this.course, this.exam)
+                .make(this.file)
 
             const requestUrl = `courseexam/upload/${this.$route.params.slug}/${this.$route.params.examId}/question`
 

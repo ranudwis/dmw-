@@ -5,7 +5,7 @@
 
             <v-spacer></v-spacer>
 
-            <put-question :exam="exam"></put-question>
+            <put-question :course="course" :exam="exam"></put-question>
         </v-card-title>
 
         <v-list>
@@ -24,9 +24,13 @@ import PutQuestion from './PutQuestion'
 
 export default {
     props: {
+        course: {
+            type: Object,
+        },
+
         exam: {
             type: Object,
-        }
+        },
     },
 
     components: {
