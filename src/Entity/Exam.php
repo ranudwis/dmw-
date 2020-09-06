@@ -124,6 +124,11 @@ class Exam
         return $this->courses;
     }
 
+    public function getDetail()
+    {
+        return $this->courses[0];
+    }
+
     public function addCourse(CourseExam $course): self
     {
         if (!$this->courses->contains($course)) {

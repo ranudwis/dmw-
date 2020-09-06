@@ -48,7 +48,18 @@ class CourseExamController extends Controller
         return $this->jsonResponse([
             'exams' => $exams
         ], [
-            'includes' => ['id', 'type', 'semester', 'startYear', 'endYear']
+            'includes' => [
+                'id',
+                'type',
+                'semester',
+                'startYear',
+                'endYear',
+                'detail' => [
+                    'information',
+                    'hasQuestion',
+                    'hasQuestionAndAnswer',
+                ]
+            ]
         ]);
     }
 

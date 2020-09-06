@@ -107,6 +107,11 @@ class CourseExam
         return $this->questionPath;
     }
 
+    public function getHasQuestion(): bool
+    {
+        return ! is_null($this->questionPath);
+    }
+
     public function setQuestionPath(?string $questionPath): self
     {
         $this->questionPath = $questionPath;
@@ -117,6 +122,11 @@ class CourseExam
     public function getQuestionAndAnswerPath(): ?string
     {
         return $this->questionAndAnswerPath;
+    }
+
+    public function getHasQuestionAndAnswer(): bool
+    {
+        return ! is_null($this->questionAndAnswerPath);
     }
 
     public function setQuestionAndAnswerPath(?string $questionAndAnswerPath): self

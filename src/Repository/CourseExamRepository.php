@@ -24,10 +24,15 @@ class CourseExamRepository extends ServiceEntityRepository
     public function getAllExamWithCourseSlug($slug)
     {
         $query = $this->getEntityManager()->createQuery('
-            SELECT exam
+            SELECT exam, courseexam
             FROM App\Entity\Exam exam
-            LEFT JOIN exam.courses courses
-            LEFT JOIN courses.course course
+            LEFT JOIN exam.courses courseexam
+                WITH courseexam.course = (
+                    SELECT course.id
+                    FROM App\Entity\Course course
+
+                    WHERE course.slug = :slug
+                )
 
             WHERE exam.semester = (
                     SELECT semester.type
@@ -36,7 +41,6 @@ class CourseExamRepository extends ServiceEntityRepository
 
                     WHERE innerCourse.slug = :slug
                 )
-                AND (course.slug = :slug OR course.slug IS NULL)
         ');
 
         $query->setParameter('slug', $slug);
