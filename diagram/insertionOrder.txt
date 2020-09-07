@@ -1,8 +1,0 @@
-article
-exam
-label
-semester
-course
-article_label
-course_exam
-doctrine_migration_versions
