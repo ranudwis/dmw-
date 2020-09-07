@@ -73,7 +73,11 @@ export default {
             const formData = new FormData()
             formData.append('file', file)
 
-            await api.post(requestUrl, formData, { loader: 'question' })
+            const response = await api.post(requestUrl, formData, { loader: 'question' })
+
+            if (response.data.uploaded) {
+                this.dialog = false
+            }
         }
     }
 }
